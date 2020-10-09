@@ -87,8 +87,9 @@ public class FPS_CharacterController : MonoBehaviour
         m_CollisionFlags = m_CharacterController.Move(l_Movement);
 
         GravityUpdate();
+        
         if(Input.GetMouseButtonDown(0))
-        Shoot();
+            Shoot();
     }
 
     private void CameraUpdate()
@@ -117,14 +118,16 @@ public class FPS_CharacterController : MonoBehaviour
     {
         Ray l_Ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
         RaycastHit l_RayCastHit;
+
         if(Physics.Raycast(l_Ray,out l_RayCastHit, m_MaxDistance, m_ShootLayerMask.value))
         {
             CreateShootHitParticles(l_RayCastHit.point, l_RayCastHit.normal);
         }
     }
+
     void CreateShootHitParticles(Vector3 Position, Vector3 Normal)
     {
-        GameObject.Instantiate(m_HitCollisionParticlesPrefab, Position, Quaternion.identity);
+        GameObject.Instantiate(m_HitCollisionParticlesPrefab, Position, Quaternion.LookRotation(Normal));
     }
 }
     
