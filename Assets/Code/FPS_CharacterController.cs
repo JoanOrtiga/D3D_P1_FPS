@@ -32,7 +32,10 @@ public class FPS_CharacterController : MonoBehaviour
     public KeyCode m_JumpKey;
     public KeyCode m_SprintKey = KeyCode.LeftShift;
 
-
+    public Animation m_Weapon;
+    public AnimationClip m_IdleWeapon;
+    public AnimationClip m_ShootWeapon;
+    public AnimationClip m_ReloadWeapon;
     
 
     public float m_MaxDistance;
@@ -51,6 +54,8 @@ public class FPS_CharacterController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         m_VerticalSpeed = 0;
+
+        SetIdleWeaponAnimation();
     }
     
     private void Update()
@@ -70,7 +75,7 @@ public class FPS_CharacterController : MonoBehaviour
         if (Input.GetKey(m_BacktMovement))
             l_Movement += -l_Forward;
 
-        print(m_CharacterController.isGrounded);
+
 
         if (Input.GetKeyDown(m_JumpKey) && m_OnGround)
         {
@@ -123,11 +128,31 @@ public class FPS_CharacterController : MonoBehaviour
         {
             CreateShootHitParticles(l_RayCastHit.point, l_RayCastHit.normal);
         }
+
+        SetShootWeaponAnimation();
     }
 
     void CreateShootHitParticles(Vector3 Position, Vector3 Normal)
     {
         GameObject.Instantiate(m_HitCollisionParticlesPrefab, Position, Quaternion.LookRotation(Normal));
+    }
+
+    void SetIdleWeaponAnimation()
+    {
+        m_Weapon.CrossFade(m_IdleWeapon.name);
+    }
+
+    void SetShootWeaponAnimation()
+    {
+        m_Weapon.CrossFade(m_ShootWeapon.name);
+        m_Weapon.CrossFadeQueued(m_IdleWeapon.name);
+    }
+    
+    void SetReloadingWeaponAnimation()
+    {
+        
+        m_Weapon.CrossFade(m_ReloadWeapon.name);
+        m_Weapon.CrossFadeQueued(m_IdleWeapon.name);
     }
 }
     
