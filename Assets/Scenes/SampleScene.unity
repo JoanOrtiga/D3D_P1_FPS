@@ -1454,6 +1454,11 @@ MonoBehaviour:
   m_BacktMovement: 115
   m_JumpKey: 32
   m_SprintKey: 304
+  m_MaxDistance: 10
+  m_HitCollisionParticlesPrefab: {fileID: 2762379143171911842, guid: d0e7fd59786928e4cb012c24c8c7c7c1, type: 3}
+  m_ShootLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!4 &1773031335
 Transform:
   m_ObjectHideFlags: 0
