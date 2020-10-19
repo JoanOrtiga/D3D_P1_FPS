@@ -144,16 +144,21 @@ public class FPS_CharacterController : MonoBehaviour
 
     void SetShootWeaponAnimation()
     {
-        m_Weapon.Play(m_ShootWeapon.name, AnimationPlayMode.Stop);
+        m_Weapon.Play(m_ShootWeapon.name, PlayMode.StopAll);
         //m_Weapon.CrossFade(m_ShootWeapon.name);
         m_Weapon.CrossFadeQueued(m_IdleWeapon.name);
     }
     
     void SetReloadingWeaponAnimation()
     {
-        
         m_Weapon.CrossFade(m_ReloadWeapon.name);
         m_Weapon.CrossFadeQueued(m_IdleWeapon.name);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Item"))
+            other.GetComponent<Item>().Pick();
     }
 }
     

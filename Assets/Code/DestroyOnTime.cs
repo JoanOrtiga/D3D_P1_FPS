@@ -8,12 +8,6 @@ public class DestroyOnTime : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(DestroyIn());
-    }
-
-    private IEnumerator DestroyIn()
-    {
-        yield return new WaitForSeconds(m_DestroyTime);
-        Destroy(gameObject);
+        Destroy(gameObject, m_DestroyTime);
     }
 }
