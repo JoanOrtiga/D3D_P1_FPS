@@ -66,6 +66,9 @@ public class FPS_CharacterController : RestartableObject
     public float m_MaxShield;
     private float m_CurrentShield;
 
+    public float m_RecieveDamageHealPercentatge = 25f;
+    public float m_RecieveDamageShieldPercentatge = 75f;
+
     [Header("References")]
     public PlayerStatsUI m_UpdateUI;
 
@@ -81,8 +84,6 @@ public class FPS_CharacterController : RestartableObject
         m_Yaw = transform.rotation.eulerAngles.y;
         m_Pitch = m_PitchController.localRotation.eulerAngles.x;
 
-        Cursor.lockState = CursorLockMode.Locked;
-
         m_VerticalSpeed = 0;
 
         m_CurrentAmmo = m_AmmoInMagazines;
@@ -96,9 +97,6 @@ public class FPS_CharacterController : RestartableObject
         m_UpdateUI.UpdateAmmo(m_CurrentAmmo, m_CurrentAmmoMagazines);
         m_UpdateUI.UpdateHeal(m_CurrentHeal);
         m_UpdateUI.UpdateShield(m_CurrentShield);
-
-
-
     }
 
     private void Update()
@@ -134,11 +132,13 @@ public class FPS_CharacterController : RestartableObject
 
         GravityUpdate();
 
+
+
         m_TimeCadency -= Time.deltaTime;
 
         if (Input.GetKey(m_ShootKey) && !m_Weapon.IsPlaying(m_ReloadWeapon.name))
         {
-            if (m_TimeCadency <= 0)
+            if (m_TimeCadency <= 0 && m_CurrentAmmo != 0)
             {
                 m_TimeCadency = m_GunCadency;
                 Shoot();
@@ -194,7 +194,7 @@ public class FPS_CharacterController : RestartableObject
 
         m_UpdateUI.UpdateAmmo(m_CurrentAmmo, m_CurrentAmmoMagazines);
 
-        if (m_CurrentAmmo <= 0)
+        if (m_CurrentAmmo <= 0 && m_CurrentAmmoMagazines > 0)
             Reload();
     }
 
@@ -226,7 +226,9 @@ public class FPS_CharacterController : RestartableObject
 
         m_TimeCadency = m_ReloadingTime;
 
-        m_CurrentAmmoMagazines -= m_AmmoInMagazines - m_CurrentAmmo;
+
+
+        m_CurrentAmmoMagazines = Mathf.Max(0, m_CurrentAmmoMagazines - (m_AmmoInMagazines - m_CurrentAmmo));
         m_CurrentAmmo = m_AmmoInMagazines;
 
         m_UpdateUI.UpdateAmmo(m_CurrentAmmo, m_CurrentAmmoMagazines);
@@ -276,14 +278,14 @@ public class FPS_CharacterController : RestartableObject
 
     public void LoseHeal(float incomingDamage)
     {
-        if (m_CurrentShield - (incomingDamage * 75 / 100) >= 0)
+        if (m_CurrentShield - (incomingDamage * m_RecieveDamageShieldPercentatge / 100) >= 0)
         {
-            m_CurrentShield = m_CurrentShield - incomingDamage * 75 / 100;
-            m_CurrentHeal = m_CurrentHeal - incomingDamage * 25 / 100;
+            m_CurrentShield = m_CurrentShield - incomingDamage * m_RecieveDamageShieldPercentatge / 100;
+            m_CurrentHeal = m_CurrentHeal - incomingDamage * m_RecieveDamageHealPercentatge / 100;
         }
         else
         {
-            m_CurrentHeal -= m_CurrentHeal - (incomingDamage * 25 / 100 + ((incomingDamage * 75 / 100) - m_CurrentShield));
+            m_CurrentHeal -= m_CurrentHeal - (incomingDamage * m_RecieveDamageHealPercentatge / 100 + ((incomingDamage * m_RecieveDamageShieldPercentatge / 100) - m_CurrentShield));
             m_CurrentShield = 0;
         }
 
