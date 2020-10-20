@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Item_Ammo : Item
 {
-    public override void Pick()
+    public float m_IncreaseAmmo;
+    public override void Pick(Collider player)
     {
-        
+        if (player.GetComponent<FPS_CharacterController>().IncreaseAmmo(m_IncreaseAmmo))
+            Destroy(gameObject);
     }
 }

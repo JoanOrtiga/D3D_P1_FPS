@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class FPS_CharacterController : MonoBehaviour
+public class FPS_CharacterController : RestartableObject
 {
-    float m_Yaw;
-    float m_Pitch;
+    private float m_Yaw;
+    private float m_Pitch;
 
+    [Header("MOVEMENT OPTIONS")]
     public float m_Min_Pitch = -35f;
     public float m_Max_Pitch = 105f;
 
@@ -24,6 +25,8 @@ public class FPS_CharacterController : MonoBehaviour
     private bool m_OnGround = true;
     private CollisionFlags m_CollisionFlags;
 
+
+    [Header("CONTROLS")]
     public KeyCode m_LeftMovement;
     public KeyCode m_RightMovement;
     public KeyCode m_FrontMovement;
@@ -32,22 +35,49 @@ public class FPS_CharacterController : MonoBehaviour
     public KeyCode m_JumpKey;
     public KeyCode m_SprintKey = KeyCode.LeftShift;
 
+    public KeyCode m_ReloadKey = KeyCode.R;
+    public KeyCode m_ShootKey = KeyCode.Mouse0;
+
+    [Header("GUN OPTIONS")]
     public Animation m_Weapon;
     public AnimationClip m_IdleWeapon;
     public AnimationClip m_ShootWeapon;
     public AnimationClip m_ReloadWeapon;
-    
+
+    public GameObject m_ShootEffect;
 
     public float m_MaxDistance;
     public GameObject m_HitCollisionParticlesPrefab;
     public LayerMask m_ShootLayerMask;
+
+    public float m_GunCadency = 0.1f;
+    private float m_TimeCadency;
+    public float m_ReloadingTime;
+
+    private float m_CurrentAmmoMagazines;
+    private float m_CurrentAmmo;
+    public float m_AmmoInMagazines;
+    public float m_maxAmmo;
+
+    [Header("Heal & Shield")]
+    public float m_MaxHeal;
+    private float m_CurrentHeal;
+
+    public float m_MaxShield;
+    private float m_CurrentShield;
+
+    [Header("References")]
+    public PlayerStatsUI m_UpdateUI;
+
     private void Awake()
     {
         m_CharacterController = GetComponent<CharacterController>();
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         m_Yaw = transform.rotation.eulerAngles.y;
         m_Pitch = m_PitchController.localRotation.eulerAngles.x;
 
@@ -55,9 +85,22 @@ public class FPS_CharacterController : MonoBehaviour
 
         m_VerticalSpeed = 0;
 
+        m_CurrentAmmo = m_AmmoInMagazines;
+        m_CurrentAmmoMagazines = m_maxAmmo;
+
         SetIdleWeaponAnimation();
+
+        m_CurrentHeal = m_MaxHeal;
+        m_CurrentShield = m_MaxShield;
+
+        m_UpdateUI.UpdateAmmo(m_CurrentAmmo, m_CurrentAmmoMagazines);
+        m_UpdateUI.UpdateHeal(m_CurrentHeal);
+        m_UpdateUI.UpdateShield(m_CurrentShield);
+
+
+
     }
-    
+
     private void Update()
     {
         CameraUpdate();
@@ -75,8 +118,6 @@ public class FPS_CharacterController : MonoBehaviour
         if (Input.GetKey(m_BacktMovement))
             l_Movement += -l_Forward;
 
-
-
         if (Input.GetKeyDown(m_JumpKey) && m_OnGround)
         {
             m_VerticalSpeed = m_JumpSpeed;
@@ -92,9 +133,24 @@ public class FPS_CharacterController : MonoBehaviour
         m_CollisionFlags = m_CharacterController.Move(l_Movement);
 
         GravityUpdate();
-        
-        if(Input.GetMouseButtonDown(0))
-            Shoot();
+
+        m_TimeCadency -= Time.deltaTime;
+
+        if (Input.GetKey(m_ShootKey) && !m_Weapon.IsPlaying(m_ReloadWeapon.name))
+        {
+            if (m_TimeCadency <= 0)
+            {
+                m_TimeCadency = m_GunCadency;
+                Shoot();
+            }
+        }
+        else
+        {
+            m_ShootEffect.SetActive(false);
+        }
+
+        if (Input.GetKeyDown(m_ReloadKey) && m_CurrentAmmo < m_AmmoInMagazines)
+            Reload();
     }
 
     private void CameraUpdate()
@@ -119,17 +175,27 @@ public class FPS_CharacterController : MonoBehaviour
             m_VerticalSpeed = 0.0f;
         }
     }
-   private void Shoot()
+
+    private void Shoot()
     {
         Ray l_Ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
         RaycastHit l_RayCastHit;
 
-        if(Physics.Raycast(l_Ray,out l_RayCastHit, m_MaxDistance, m_ShootLayerMask.value))
+        m_ShootEffect.SetActive(true);
+
+        if (Physics.Raycast(l_Ray, out l_RayCastHit, m_MaxDistance, m_ShootLayerMask.value))
         {
             CreateShootHitParticles(l_RayCastHit.point, l_RayCastHit.normal);
         }
 
         SetShootWeaponAnimation();
+
+        m_CurrentAmmo--;
+
+        m_UpdateUI.UpdateAmmo(m_CurrentAmmo, m_CurrentAmmoMagazines);
+
+        if (m_CurrentAmmo <= 0)
+            Reload();
     }
 
     void CreateShootHitParticles(Vector3 Position, Vector3 Normal)
@@ -144,21 +210,95 @@ public class FPS_CharacterController : MonoBehaviour
 
     void SetShootWeaponAnimation()
     {
-        m_Weapon.Play(m_ShootWeapon.name, PlayMode.StopAll);
-        //m_Weapon.CrossFade(m_ShootWeapon.name);
+        m_Weapon.Play(m_ShootWeapon.name);
         m_Weapon.CrossFadeQueued(m_IdleWeapon.name);
     }
-    
+
     void SetReloadingWeaponAnimation()
     {
         m_Weapon.CrossFade(m_ReloadWeapon.name);
         m_Weapon.CrossFadeQueued(m_IdleWeapon.name);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void Reload()
     {
-        if (other.CompareTag("Item"))
-            other.GetComponent<Item>().Pick();
+        SetReloadingWeaponAnimation();
+
+        m_TimeCadency = m_ReloadingTime;
+
+        m_CurrentAmmoMagazines -= m_AmmoInMagazines - m_CurrentAmmo;
+        m_CurrentAmmo = m_AmmoInMagazines;
+
+        m_UpdateUI.UpdateAmmo(m_CurrentAmmo, m_CurrentAmmoMagazines);
+    }
+
+    public bool IncreaseAmmo(float ammo)
+    {
+        if (m_CurrentAmmoMagazines == m_maxAmmo)
+            return false;
+        else
+        {
+            m_CurrentAmmoMagazines = Mathf.Min(m_CurrentAmmoMagazines + ammo, m_maxAmmo);
+
+            m_UpdateUI.UpdateAmmo(m_CurrentAmmo, m_CurrentAmmoMagazines);
+
+            return true;
+        }
+    }
+
+    public bool IncreaseShield(float shield)
+    {
+        if (m_CurrentShield == m_MaxShield)
+            return false;
+        else
+        {
+            m_CurrentShield = Mathf.Min(m_CurrentShield + shield, m_MaxShield);
+
+            m_UpdateUI.UpdateShield(m_CurrentShield);
+
+            return true;
+        }
+    }
+
+    public bool IncreaseHeal(float heal)
+    {
+        if (m_CurrentHeal == m_MaxHeal)
+            return false;
+        else
+        {
+            m_CurrentHeal = Mathf.Min(m_CurrentHeal + heal, m_MaxHeal);
+
+            m_UpdateUI.UpdateHeal(m_CurrentHeal);
+
+            return true;
+        }
+    }
+
+    public void LoseHeal(float incomingDamage)
+    {
+        if (m_CurrentShield - (incomingDamage * 75 / 100) >= 0)
+        {
+            m_CurrentShield = m_CurrentShield - incomingDamage * 75 / 100;
+            m_CurrentHeal = m_CurrentHeal - incomingDamage * 25 / 100;
+        }
+        else
+        {
+            m_CurrentHeal -= m_CurrentHeal - (incomingDamage * 25 / 100 + ((incomingDamage * 75 / 100) - m_CurrentShield));
+            m_CurrentShield = 0;
+        }
+
+        if (m_CurrentHeal <= 0)
+        {
+            print("Has Mort");
+        }
+
+        m_UpdateUI.UpdateHeal(m_CurrentHeal);
+        m_UpdateUI.UpdateShield(m_CurrentShield);
+    }
+
+    public override void RestartObject()
+    {
+        base.RestartObject();
     }
 }
-    
+
