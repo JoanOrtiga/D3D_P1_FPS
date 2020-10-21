@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Item_Heal : Item
 {
-    public float m_IncreaseHeal;
+    public float increaseHeal = 25;
     public override void Pick(Collider player)
     {
-        if (player.GetComponent<FPS_CharacterController>().IncreaseHeal(m_IncreaseHeal))
+        if (player.GetComponent<FPS_CharacterController>().IncreaseHeal(increaseHeal))
             Destroy(gameObject);
     }
 }

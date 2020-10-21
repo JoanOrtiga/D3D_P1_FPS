@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Item_Shield : Item
 {
-    public float m_IncreaseShield;
+    public float increaseShield = 25;
     public override void Pick(Collider player)
     {
-        if (player.GetComponent<FPS_CharacterController>().IncreaseShield(m_IncreaseShield))
+        if (player.GetComponent<FPS_CharacterController>().IncreaseShield(increaseShield))
             Destroy(gameObject);
     }
 }

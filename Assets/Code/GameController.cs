@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    public FPS_CharacterController m_Player;
-    public Transform m_DestroyObjects;
+    public FPS_CharacterController player;
+    public Transform destroyObjects;
 
     private void Start()
     {

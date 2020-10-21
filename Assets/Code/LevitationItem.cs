@@ -4,30 +4,30 @@ using UnityEngine;
 
 public class LevitationItem : MonoBehaviour
 {
-    [SerializeField] private float m_heightRange = 1.3f;
-    [SerializeField] private float m_speed = 1.5f;
+    [SerializeField] private float heightRange = 1.3f;
+    [SerializeField] private float speed = 1.5f;
 
-    [SerializeField] private float m_rotationSpeed = 1.5f;
-    [SerializeField] private bool m_rotateX = false;
-    [SerializeField] private bool m_rotateY = false;
-    [SerializeField] private bool m_rotateZ = false;
+    [SerializeField] private float rotationSpeed = 1.5f;
+    [SerializeField] private bool rotateX = false;
+    [SerializeField] private bool rotateY = false;
+    [SerializeField] private bool rotateZ = false;
 
-    private float m_StartHeight;
+    private float startHeight;
 
     void Start()
     {
-        m_StartHeight = transform.position.y;
+        startHeight = transform.position.y;
     }
 
     void Update()
     {
-        transform.position = new Vector3(transform.position.x, (float)(m_StartHeight + Mathf.Sin(Time.time * m_speed) * m_heightRange / 2.0), transform.position.z);
+        transform.position = new Vector3(transform.position.x, (float)(startHeight + Mathf.Sin(Time.time * speed) * heightRange / 2.0), transform.position.z);
 
-        if (m_rotateX)
-            transform.Rotate(m_rotationSpeed, 0, 0);
-        if (m_rotateY)
-            transform.Rotate(0, m_rotationSpeed, 0);
-        if (m_rotateZ)
-            transform.Rotate(0, 0, m_rotationSpeed);
+        if (rotateX)
+            transform.Rotate(rotationSpeed, 0, 0);
+        if (rotateY)
+            transform.Rotate(0, rotationSpeed, 0);
+        if (rotateZ)
+            transform.Rotate(0, 0, rotationSpeed);
     }
 }

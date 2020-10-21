@@ -843,6 +843,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cde86fe6fd049d4c88d27a17f08b7fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Ammo: {fileID: 6170989086646836733}
-  m_Heal: {fileID: 6170989087671095890}
-  m_Shield: {fileID: 6170989086815671460}
+  ammoText: {fileID: 6170989086646836733}
+  healText: {fileID: 6170989087671095890}
+  shieldText: {fileID: 6170989086815671460}

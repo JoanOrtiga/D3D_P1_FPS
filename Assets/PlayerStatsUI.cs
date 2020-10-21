@@ -5,22 +5,22 @@ using UnityEngine.UI;
 
 public class PlayerStatsUI : MonoBehaviour
 {
-    [SerializeField] private Text m_Ammo = null;
-    [SerializeField] private Text m_Heal = null;
-    [SerializeField] private Text m_Shield = null;
+    [SerializeField] private Text ammoText = null;
+    [SerializeField] private Text healText = null;
+    [SerializeField] private Text shieldText = null;
 
     public void UpdateAmmo(float ammo, float ammoInMagazine)
     {
-        m_Ammo.text = ammo + " / " + ammoInMagazine;
+        ammoText.text = ammo + " / " + ammoInMagazine;
     }
 
     public void UpdateHeal(float heal)
     {
-        m_Heal.text = heal.ToString();
+        healText.text = heal.ToString();
     }
 
     public void UpdateShield(float shield)
     {
-        m_Shield.text = shield.ToString();
+        shieldText.text = shield.ToString();
     }
 }

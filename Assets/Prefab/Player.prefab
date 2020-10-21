@@ -18,6 +18,34 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &1335371365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3479240398603804794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b5bb3a68847df044b0a98fd687132b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reloadKey: 114
+  shootKey: 323
+  weapon: {fileID: 3480997874411312715}
+  idleWeapon: {fileID: 7400000, guid: f892d6ab2d5be684485eb688fd76a543, type: 2}
+  shootWeapon: {fileID: 7400000, guid: 19a070b65b97d13499576e9949b95b3a, type: 2}
+  reloadWeapon: {fileID: 7400000, guid: dd952dec5bed6c349b50fc6bb30dca7a, type: 2}
+  shootEffect: {fileID: 831623288}
+  maxDistance: 20
+  hitCollisionParticlesPrefab: {fileID: 1167628166158255383, guid: 9cf069e0cf1060c4f98530062803c3f8, type: 3}
+  shootLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  gunCadency: 0.1
+  reloadingTime: 2.5
+  ammoInMagazines: 30
+  maxAmmo: 180
 --- !u!1 &3480997874507394856
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,38 +303,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4951278c718df8942aecd995f9784c5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Min_Pitch: -35
-  m_Max_Pitch: 105
-  m_YawRotationSpeed: 200
-  m_PitchRotationSpeed: 250
-  m_PitchController: {fileID: 3480997875055795756}
-  m_Speed: 12
-  m_JumpSpeed: 4.5
-  m_LeftMovement: 97
-  m_RightMovement: 100
-  m_FrontMovement: 119
-  m_BacktMovement: 115
-  m_JumpKey: 32
-  m_SprintKey: 304
-  m_ReloadKey: 114
-  m_ShootKey: 323
-  m_Weapon: {fileID: 3480997874411312715}
-  m_IdleWeapon: {fileID: 7400000, guid: f892d6ab2d5be684485eb688fd76a543, type: 2}
-  m_ShootWeapon: {fileID: 7400000, guid: 19a070b65b97d13499576e9949b95b3a, type: 2}
-  m_ReloadWeapon: {fileID: 7400000, guid: dd952dec5bed6c349b50fc6bb30dca7a, type: 2}
-  m_ShootEffect: {fileID: 831623288}
-  m_MaxDistance: 10
-  m_HitCollisionParticlesPrefab: {fileID: 1167628166158255383, guid: 9cf069e0cf1060c4f98530062803c3f8, type: 3}
-  m_ShootLayerMask:
-    serializedVersion: 2
-    m_Bits: 51
-  m_GunCadency: 0.3
-  m_ReloadingTime: 2
-  m_AmmoInMagazines: 30
-  m_maxAmmo: 180
-  m_MaxHeal: 100
-  m_MaxShield: 100
-  m_UpdateUI: {fileID: 0}
+  min_Pitch: -35
+  max_Pitch: 105
+  yawRotationSpeed: 90
+  pitchRotationSpeed: 120
+  pitchController: {fileID: 3480997875055795756}
+  speed: 10
+  jumpSpeed: 3.5
+  leftMovement: 97
+  rightMovement: 100
+  frontMovement: 119
+  backMovement: 115
+  jumpKey: 32
+  sprintKey: 304
+  maxHeal: 100
+  maxShield: 100
+  recieveDamageHealPercentatge: 25
+  recieveDamageShieldPercentatge: 75
+  updateUI: {fileID: 0}
+  gunReference: {fileID: 1335371365}
 --- !u!143 &3480997875836538364
 CharacterController:
   m_ObjectHideFlags: 0

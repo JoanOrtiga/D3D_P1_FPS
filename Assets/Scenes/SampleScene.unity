@@ -3499,17 +3499,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71f7ed2b5b87ec14d93fd8e7ebc473b0, type: 3}
---- !u!114 &1181951055 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3480997875836538367, guid: f91c3259554317e43814c686fb5da229, type: 3}
-  m_PrefabInstance: {fileID: 1335371363}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4951278c718df8942aecd995f9784c5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1192715175 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 403216, guid: 16825721b44628e4fbbfd5504b0b0631, type: 3}
@@ -3544,8 +3533,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e50c3f1a22be1ec45ba646a298564ea0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Player: {fileID: 1181951055}
-  m_DestroyObjects: {fileID: 750824717}
+  player: {fileID: 0}
+  destroyObjects: {fileID: 0}
 --- !u!4 &1193517898
 Transform:
   m_ObjectHideFlags: 0
@@ -4025,7 +4014,7 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3480997875836538367, guid: f91c3259554317e43814c686fb5da229, type: 3}
-      propertyPath: m_UpdateUI
+      propertyPath: updateUI
       value: 
       objectReference: {fileID: 1235871502}
     m_RemovedComponents: []
@@ -6053,10 +6042,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShieldItem
       objectReference: {fileID: 0}
-    - target: {fileID: 4076138537393586737, guid: f86ffa140fe1f924aa9061b86e07b454, type: 3}
-      propertyPath: m_IncreaseShield
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 4547477950477198808, guid: f86ffa140fe1f924aa9061b86e07b454, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.43
@@ -6167,6 +6152,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6170989086618346110, guid: 8624d65945253344a8d69aaab0b27242, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 131.7002
+      objectReference: {fileID: 0}
+    - target: {fileID: 6170989086618346110, guid: 8624d65945253344a8d69aaab0b27242, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -78.69995
+      objectReference: {fileID: 0}
+    - target: {fileID: 6170989086646836733, guid: 8624d65945253344a8d69aaab0b27242, type: 3}
+      propertyPath: m_FontData.m_BestFit
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6170989086646836733, guid: 8624d65945253344a8d69aaab0b27242, type: 3}
+      propertyPath: m_FontData.m_HorizontalOverflow
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6170989086646836733, guid: 8624d65945253344a8d69aaab0b27242, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 46
+      objectReference: {fileID: 0}
+    - target: {fileID: 6170989086646836733, guid: 8624d65945253344a8d69aaab0b27242, type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6170989087706890387, guid: 8624d65945253344a8d69aaab0b27242, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -6255,6 +6264,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 6170989088233180777, guid: 8624d65945253344a8d69aaab0b27242, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 131.7002
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8624d65945253344a8d69aaab0b27242, type: 3}
 --- !u!1001 &6768890014691495348
@@ -6267,10 +6280,6 @@ PrefabInstance:
     - target: {fileID: 6767075213574570511, guid: 0d05503534a210c4882edfeee8575b6b, type: 3}
       propertyPath: m_Name
       value: AidKitItem
-      objectReference: {fileID: 0}
-    - target: {fileID: 6768890013444062891, guid: 0d05503534a210c4882edfeee8575b6b, type: 3}
-      propertyPath: m_IncreaseHeal
-      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 6773208737008750337, guid: 0d05503534a210c4882edfeee8575b6b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6382,10 +6391,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7792593269956693398, guid: d28e15ea8ef83114ba6eee705bdd0b2a, type: 3}
-      propertyPath: m_IncreaseAmmo
-      value: 30
-      objectReference: {fileID: 0}
     - target: {fileID: 7792593270835248174, guid: d28e15ea8ef83114ba6eee705bdd0b2a, type: 3}
       propertyPath: m_Name
       value: AmmoItem
