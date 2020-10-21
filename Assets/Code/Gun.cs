@@ -24,6 +24,7 @@ public class Gun : MonoBehaviour
     public float gunCadency = 0.1f;
     private float timeCadency;
     public float reloadingTime;
+    private bool reloading = false;
 
 
     [Header("GUN MAGAZINES")]
@@ -46,12 +47,16 @@ public class Gun : MonoBehaviour
     {
         timeCadency -= Time.deltaTime;
 
-        if (Input.GetKey(shootKey) && !weapon.IsPlaying(reloadWeapon.name))
+        if (Input.GetKey(shootKey) && reloading == false)
         {
             if (timeCadency <= 0 && currentAmmo > 0)
             {
                 timeCadency = gunCadency;
                 Shoot();
+            }
+            else if(currentAmmoMagazines <= 0)
+            {
+                shootEffect.SetActive(false);
             }
         }
         else
@@ -60,7 +65,7 @@ public class Gun : MonoBehaviour
         }
 
         if (Input.GetKeyDown(reloadKey) && currentAmmo < ammoInMagazines)
-            Reload();
+            StartCoroutine(Reload());
     }
 
     private void Shoot()
@@ -82,7 +87,7 @@ public class Gun : MonoBehaviour
         updateUI.UpdateAmmo(currentAmmo, currentAmmoMagazines);
 
         if (currentAmmo <= 0 && currentAmmoMagazines > 0)
-            Reload();
+            StartCoroutine(Reload());
     }
 
     void CreateShootHitParticles(Vector3 Position, Vector3 Normal)
@@ -107,14 +112,28 @@ public class Gun : MonoBehaviour
         weapon.CrossFadeQueued(idleWeapon.name);
     }
 
-    private void Reload()
+    private IEnumerator Reload()
     {
         SetReloadingWeaponAnimation();
 
-        timeCadency = reloadingTime;
+        reloading = true;
 
-        currentAmmoMagazines = Mathf.Max(0, currentAmmoMagazines - (ammoInMagazines - currentAmmo));
-        currentAmmo = ammoInMagazines;
+        yield return new WaitForSeconds(reloadingTime);
+
+        reloading = false;
+
+        int ammoToBeLoaded = ammoInMagazines - currentAmmo;
+
+        if (ammoToBeLoaded > currentAmmoMagazines)
+        {
+            currentAmmo += currentAmmoMagazines;
+            currentAmmoMagazines = 0;
+        }
+        else
+        {
+            currentAmmoMagazines = currentAmmoMagazines - ammoToBeLoaded;
+            currentAmmo = ammoInMagazines;
+        }
 
         updateUI.UpdateAmmo(currentAmmo, currentAmmoMagazines);
     }
@@ -130,7 +149,7 @@ public class Gun : MonoBehaviour
             updateUI.UpdateAmmo(currentAmmo, currentAmmoMagazines);
 
             return true;
-        }   
+        }
     }
 
     public void ConfigurateFromPlayer(PlayerStatsUI ui)
@@ -138,6 +157,6 @@ public class Gun : MonoBehaviour
         updateUI = ui;
 
         updateUI.UpdateAmmo(currentAmmo, currentAmmoMagazines);
-        
+
     }
 }
