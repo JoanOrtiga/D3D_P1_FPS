@@ -43,7 +43,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   gunCadency: 0.1
-  reloadingTime: 2.5
+  reloadingTime: 1.5
   ammoInMagazines: 30
   maxAmmo: 180
 --- !u!1 &3480997874507394856
@@ -308,7 +308,8 @@ MonoBehaviour:
   yawRotationSpeed: 90
   pitchRotationSpeed: 120
   pitchController: {fileID: 3480997875055795756}
-  speed: 10
+  movementSpeed: 10
+  movementSpeedSprinting: 14
   jumpSpeed: 3.5
   leftMovement: 97
   rightMovement: 100
