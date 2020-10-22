@@ -5,8 +5,6 @@ using UnityEngine.AI;
 
 public class DroneMachine : MonoBehaviour
 {
-    public Transform target;
-
     private StateMachine<DroneMachine> stateMachine;
     public StateMachine<DroneMachine> pStateMachine
     {
@@ -19,24 +17,33 @@ public class DroneMachine : MonoBehaviour
         get { return navMeshAgent; }
     }
 
-    public float timer;
+    public float timer { get; set; }
 
     [Header("IDLE")]
     public float stayIdleTime;
 
     [Header("ALERT")]
-    public float minDistanceToAlert = 5.0f;
+    public float maxDistanceToAlert = 5.0f;
+    public float rotateSpeedAlert = 10f;
+    public float searchTime = 1f;
 
+    [Header("ATTACK")]
     public float minDistanceToAttack = 3.0f;
     public float maxDistanceToAttack = 7.0f;
 
-    public float maxDistanceToPatrol = 15.0f;
+    [Header("PATROL")]
+    public List<Transform> waypoints;
+    [HideInInspector] public int currentWaypointID = 0;
 
+    [Header("CHASE")]
+    public float maxDistanceToRaycast = 15f;
     public float coneAngle = 60f;
-    public float lerpAttackRotation = 0.6f;
+    public LayerMask sightLayerMask;
 
-
+    [Header("REFERENCES")]
     public FPS_CharacterController player;
+    public Transform eyes;
+
 
 
     private void Awake()
@@ -47,11 +54,71 @@ public class DroneMachine : MonoBehaviour
     private void Start()
     {
         stateMachine = new StateMachine<DroneMachine>(this);
+        stateMachine.ChangeState(DroneIdleState.Instance);
     }
 
     private void Update()
     {
+        print(stateMachine.CurrentState());
+
         stateMachine.UpdateMachine();
+    }
+
+    public bool SeesPlayer()
+    {
+        /*Vector3 direction = player.transform.position - transform.position;
+        direction.Normalize();
+        bool isOnCone = Vector3.Dot(transform.forward, direction) >= Mathf.Cos(coneAngle * Mathf.Deg2Rad * 0.5f);
+
+        Ray ray = new Ray(eyes.position, direction);
+        if (isOnCone && !Physics.Raycast(ray, maxDistanceToRaycast, sightLayerMask.value))
+        {
+            return true;
+        }
+
+        return false;*/
+
+        /*  Vector3 direction = player.transform.position+Vector3.up * 1.6f - transform.position;
+          direction /= direction.magnitude;
+          bool isOnCone = Vector3.Dot(transform.forward, direction) >= Mathf.Cos(coneAngle * Mathf.Deg2Rad * 0.5f);
+
+          Ray ray = new Ray(eyes.position, direction);
+          if (isOnCone && !Physics.Raycast(ray, maxDistanceToRaycast, sightLayerMask.value))
+          {
+              return true;
+          }
+
+          return false;*/
+
+        Vector3 targetDir = player.transform.position - transform.position;
+        float angle = Vector3.Angle(targetDir, transform.forward);
+        bool isOnCone = angle < coneAngle / 2f;
+
+        Ray ray = new Ray(eyes.position, targetDir.normalized);
+
+        if (isOnCone && !Physics.Raycast(ray, maxDistanceToRaycast, sightLayerMask.value))
+        {
+            print("true");
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
+
+    public bool HearsPlayer()
+    {
+        float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position);
+        return distanceToPlayer < maxDistanceToAlert;
+    }
+
+    public bool IsInAttackDistance()
+    {
+        float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position);
+        return distanceToPlayer < maxDistanceToAttack;
     }
 }
 
