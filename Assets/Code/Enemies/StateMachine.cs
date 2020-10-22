@@ -1,24 +1,54 @@
-﻿public class StateMachine
+﻿public class StateMachine<T>
 {
-    IState currentState;
+    private T owner;
 
-    public void ChangeState(IState newState)
+    private State<T> currentState;
+    private State<T> previousState;
+
+    public StateMachine(T _owner)
     {
-        if(currentState != null)
+        this.owner = _owner;
+    }
+
+    public void ChangeState(State<T> newState)
+    {
+        previousState = currentState;
+
+        if (currentState != null)
         {
-            currentState.Exit();
+            currentState.Exit(owner);
         }
 
         currentState = newState;
-        currentState.Enter();
+        currentState.Enter(owner);
     }
 
     public void UpdateMachine()
     {
-        if(currentState != null)
+        if (currentState != null)
         {
-            currentState.Execute();
+            currentState.Execute(owner);
         }
     }
 
+    public void RevertToPreviousState()
+    {
+        ChangeState(previousState);
+    }
+
+    public State<T> CurrentState()
+    {
+        return currentState;
+    }
+
+    public State<T> PreviousState()
+    {
+        return previousState;
+    }
+
+    public bool IsInState(State<T> state)
+    {
+        return currentState == state;
+    }
 }
+

@@ -5,10 +5,39 @@ using UnityEngine.AI;
 
 public class DroneMachine : MonoBehaviour
 {
-    StateMachine stateMachine = new StateMachine();
-
     public Transform target;
+
+    private StateMachine<DroneMachine> stateMachine;
+    public StateMachine<DroneMachine> pStateMachine
+    {
+        get { return stateMachine; }
+    }
+
     private NavMeshAgent navMeshAgent;
+    public NavMeshAgent pNavMeshAgent
+    {
+        get { return navMeshAgent; }
+    }
+
+    public float timer;
+
+    [Header("IDLE")]
+    public float stayIdleTime;
+
+    [Header("ALERT")]
+    public float minDistanceToAlert = 5.0f;
+
+    public float minDistanceToAttack = 3.0f;
+    public float maxDistanceToAttack = 7.0f;
+
+    public float maxDistanceToPatrol = 15.0f;
+
+    public float coneAngle = 60f;
+    public float lerpAttackRotation = 0.6f;
+
+
+    public FPS_CharacterController player;
+
 
     private void Awake()
     {
@@ -17,17 +46,12 @@ public class DroneMachine : MonoBehaviour
 
     private void Start()
     {
-        stateMachine.ChangeState(new DroneIdleState(this));
+        stateMachine = new StateMachine<DroneMachine>(this);
     }
 
     private void Update()
     {
         stateMachine.UpdateMachine();
-    }
-
-    public NavMeshAgent GetNavMeshAgent()
-    {
-        return navMeshAgent;
     }
 }
 
