@@ -20,6 +20,8 @@ public class Gun : MonoBehaviour
     public float maxDistance;
     public GameObject hitCollisionParticlesPrefab;
     public LayerMask shootLayerMask;
+    public int gunDamage;
+    public int hitForce;
 
     public float gunCadency = 0.1f;
     private float timeCadency;
@@ -78,6 +80,21 @@ public class Gun : MonoBehaviour
         if (Physics.Raycast(l_Ray, out l_RayCastHit, maxDistance, shootLayerMask.value))
         {
             CreateShootHitParticles(l_RayCastHit.point, l_RayCastHit.normal);
+            ShootableBox health = l_RayCastHit.collider.GetComponent<ShootableBox>();
+            shootingTarget target = l_RayCastHit.collider.GetComponent<shootingTarget>();
+
+            if(health != null)
+            {
+                health.Damage(gunDamage);
+            }
+            if(l_RayCastHit.rigidbody != null)
+            {
+                l_RayCastHit.rigidbody.AddForce(-l_RayCastHit.normal * hitForce);
+            }
+            if(target != null)
+            {
+                target.hit();
+            }
         }
 
         SetShootWeaponAnimation();

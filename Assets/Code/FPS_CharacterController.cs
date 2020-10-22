@@ -36,7 +36,7 @@ public class FPS_CharacterController : RestartableObject
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode sprintKey = KeyCode.LeftShift;
 
-    [Header("Heal & Shield")]
+    [Header("Heal, Shield & Points")]
     public float maxHeal;
     private float currentHeal;
 
@@ -45,6 +45,9 @@ public class FPS_CharacterController : RestartableObject
 
     public float recieveDamageHealPercentatge = 25f;
     public float recieveDamageShieldPercentatge = 75f;
+
+    public int currentPoints;
+    
 
     [Header("References")]
     public PlayerStatsUI updateUI;
@@ -192,7 +195,11 @@ public class FPS_CharacterController : RestartableObject
         updateUI.UpdateHeal(currentHeal);
         updateUI.UpdateShield(currentShield);
     }
-
+    public void addPoints(int PointsAmmount)
+    {
+        currentPoints += PointsAmmount;
+        updateUI.UpdatePoints(currentPoints);
+    }
     public override void RestartObject()
     {
         base.RestartObject();

@@ -8,6 +8,7 @@ public class PlayerStatsUI : MonoBehaviour
     [SerializeField] private Text ammoText = null;
     [SerializeField] private Text healText = null;
     [SerializeField] private Text shieldText = null;
+    [SerializeField] private Text galleryPoints = null;
 
     public void UpdateAmmo(float ammo, float ammoInMagazine)
     {
@@ -22,5 +23,9 @@ public class PlayerStatsUI : MonoBehaviour
     public void UpdateShield(float shield)
     {
         shieldText.text = shield.ToString();
+    }
+    public void UpdatePoints(int points)
+    {
+        galleryPoints.text = "Points" + points.ToString();
     }
 }
