@@ -34,6 +34,10 @@ public class DronePatrolState : State<DroneMachine>
             MoveToNextPatrolPosition(entity);
         }
 
+        //if(entity.recibedaño){
+        //entity.machine.changestate(dronehitstate.instance);
+        //}
+
         if (entity.HearsPlayer())
         {
             entity.pStateMachine.ChangeState(DroneAlertState.Instance);
