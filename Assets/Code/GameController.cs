@@ -11,7 +11,7 @@ public class GameController : MonoBehaviour
 
     public bool lockCursor = true;
 
-    public int levelToLoad;
+    [HideInInspector] public int levelToLoad;
 
     public List<RestartableObject> restartableObjects;
 
@@ -35,11 +35,22 @@ public class GameController : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
     }
 
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.O))
+        {
+            RestartScene();
+        }
+    }
+
     public void RestartScene()
     {
         //UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
 
-
+        for (int i = 0; i < restartableObjects.Count; i++)
+        {
+            restartableObjects[i].RestartObject();
+        }
     }
 
     public void LoadNextLevel(int levelToLoad)
