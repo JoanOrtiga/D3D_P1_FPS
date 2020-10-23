@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class DroneMachine : MonoBehaviour
+public class DroneMachine : RestartableObject
 {
     private StateMachine<DroneMachine> stateMachine;
     public StateMachine<DroneMachine> pStateMachine
