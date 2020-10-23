@@ -25,7 +25,6 @@
 
     public void UpdateMachine()
     {
-       
         if (currentState != null)
         {
             currentState.Execute(owner);

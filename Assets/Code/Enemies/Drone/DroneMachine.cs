@@ -44,7 +44,9 @@ public class DroneMachine : MonoBehaviour
     public FPS_CharacterController player;
     public Transform eyes;
 
-
+    [Header("HEALTH")]
+    public int maxHP = 100;
+    private int currentHP;
 
     private void Awake()
     {
@@ -53,6 +55,8 @@ public class DroneMachine : MonoBehaviour
 
     private void Start()
     {
+        currentHP = maxHP;
+
         stateMachine = new StateMachine<DroneMachine>(this);
         stateMachine.ChangeState(DroneIdleState.Instance);
     }
@@ -66,53 +70,6 @@ public class DroneMachine : MonoBehaviour
 
     public bool SeesPlayer()
     {
-        /*Vector3 direction = player.transform.position - transform.position;
-        direction.Normalize();
-        bool isOnCone = Vector3.Dot(transform.forward, direction) >= Mathf.Cos(coneAngle * Mathf.Deg2Rad * 0.5f);
-
-        Ray ray = new Ray(eyes.position, direction);
-        if (isOnCone && !Physics.Raycast(ray, maxDistanceToRaycast, sightLayerMask.value))
-        {
-            return true;
-        }
-
-        return false;*/
-
-        /*  Vector3 direction = player.transform.position+Vector3.up * 1.6f - transform.position;
-          direction /= direction.magnitude;
-          bool isOnCone = Vector3.Dot(transform.forward, direction) >= Mathf.Cos(coneAngle * Mathf.Deg2Rad * 0.5f);
-
-          Ray ray = new Ray(eyes.position, direction);
-          if (isOnCone && !Physics.Raycast(ray, maxDistanceToRaycast, sightLayerMask.value))
-          {
-              return true;
-          }
-
-          return false;*/
-
-        /*   Vector3 targetDir = player.transform.position + Vector3.up *1.5f - transform.position;
-           float angle = Vector3.Angle(targetDir, transform.forward);
-           bool isOnCone = angle < coneAngle / 2f;
-
-           Ray ray = new Ray(eyes.position, targetDir.normalized);
-
-           RaycastHit x;
-
-           Physics.Raycast(ray, out x, maxDistanceToRaycast, sightLayerMask.value);
-
-           print(x.collider.name + "    " + angle);
-
-           if (isOnCone && !Physics.Raycast(ray, maxDistanceToRaycast, sightLayerMask.value))
-           {
-               print("true");
-
-               return true;
-           }
-           else
-           {
-               return false;
-           }*/
-
         Vector3 direction = (player.transform.position + Vector3.up * 1.5f) - eyes.position;
         float distanceToPlayer = direction.magnitude;
         direction /= distanceToPlayer;
