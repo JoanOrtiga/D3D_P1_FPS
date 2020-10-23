@@ -23,6 +23,7 @@ public class FPS_CharacterController : RestartableObject
     private float currentMovementSpeed = 0f;
     private float verticalSpeed;
     public float jumpSpeed = 2.5f;
+    public float sensitivy = 0.1f;
 
     private bool onGround = true;
     private CollisionFlags collisionFlags;
@@ -128,8 +129,8 @@ public class FPS_CharacterController : RestartableObject
         float l_MouseAxisX = Input.GetAxis("Mouse X");
         float l_MouseAxisY = Input.GetAxis("Mouse Y");
 
-        yaw = yaw + l_MouseAxisX * yawRotationSpeed * Time.deltaTime;
-        pitch = pitch + l_MouseAxisY * pitchRotationSpeed * Time.deltaTime * -1f; // *-1 to invert mouse.
+        yaw = yaw + l_MouseAxisX * yawRotationSpeed * sensitivy /** Time.deltaTime*/;
+        pitch = pitch + l_MouseAxisY * pitchRotationSpeed * sensitivy /** Time.deltaTime*/ * -1f; // *-1 to invert mouse.
 
         pitch = Mathf.Clamp(pitch, min_Pitch, max_Pitch);
 
