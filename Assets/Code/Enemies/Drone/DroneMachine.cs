@@ -25,7 +25,7 @@ public class DroneMachine : MonoBehaviour
     [Header("ALERT")]
     public float maxDistanceToAlert = 5.0f;
     public float rotateSpeedAlert = 10f;
-    public float searchTime = 1f;
+    public float startRotation;
 
     [Header("ATTACK")]
     public float minDistanceToAttack = 3.0f;
@@ -90,23 +90,41 @@ public class DroneMachine : MonoBehaviour
 
           return false;*/
 
-        Vector3 targetDir = player.transform.position - transform.position;
-        float angle = Vector3.Angle(targetDir, transform.forward);
-        bool isOnCone = angle < coneAngle / 2f;
+        /*   Vector3 targetDir = player.transform.position + Vector3.up *1.5f - transform.position;
+           float angle = Vector3.Angle(targetDir, transform.forward);
+           bool isOnCone = angle < coneAngle / 2f;
 
-        Ray ray = new Ray(eyes.position, targetDir.normalized);
+           Ray ray = new Ray(eyes.position, targetDir.normalized);
 
-        if (isOnCone && !Physics.Raycast(ray, maxDistanceToRaycast, sightLayerMask.value))
+           RaycastHit x;
+
+           Physics.Raycast(ray, out x, maxDistanceToRaycast, sightLayerMask.value);
+
+           print(x.collider.name + "    " + angle);
+
+           if (isOnCone && !Physics.Raycast(ray, maxDistanceToRaycast, sightLayerMask.value))
+           {
+               print("true");
+
+               return true;
+           }
+           else
+           {
+               return false;
+           }*/
+
+        Vector3 direction = (player.transform.position + Vector3.up * 1.5f) - eyes.position;
+        float distanceToPlayer = direction.magnitude;
+        direction /= distanceToPlayer;
+
+        bool isOnCone = Vector3.Dot(transform.forward, direction) >= Mathf.Cos(coneAngle * Mathf.Deg2Rad * 0.5f);
+
+        if (isOnCone && !Physics.Linecast(eyes.position, player.transform.position + Vector3.up * 1.5f, sightLayerMask.value))
         {
-            print("true");
-
             return true;
         }
-        else
-        {
-            return false;
-        }
 
+        return false;
     }
 
     public bool HearsPlayer()

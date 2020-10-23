@@ -16,6 +16,12 @@ public class DronePatrolState : State<DroneMachine>
     {
         entity.timer = 0.0f;
 
+        if(entity.waypoints.Count == 0)
+        {
+            entity.pStateMachine.ChangeState(DroneIdleState.Instance);
+            return;
+        }
+
         entity.pNavMeshAgent.isStopped = false;
         MoveToNextPatrolPosition(entity);
     }
@@ -50,7 +56,6 @@ public class DronePatrolState : State<DroneMachine>
     private void MoveToNextPatrolPosition(DroneMachine entity)
     {
         entity.pNavMeshAgent.SetDestination(entity.waypoints[entity.currentWaypointID].position);
-        
     }
 
     private void UpdateWaypointID(DroneMachine entity)
