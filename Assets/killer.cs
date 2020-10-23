@@ -5,7 +5,7 @@ using UnityEngine;
 public class killer : MonoBehaviour
 {
     public FPS_CharacterController fps;
-    private int damage=50;
+    private int damage=250;
    
     private void OnTriggerEnter(Collider other)
     {
