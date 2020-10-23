@@ -109,7 +109,7 @@ public class Gun : MonoBehaviour
 
     void CreateShootHitParticles(Vector3 Position, Vector3 Normal)
     {
-        GameObject.Instantiate(hitCollisionParticlesPrefab, Position, Quaternion.LookRotation(Normal));
+        GameObject.Instantiate(hitCollisionParticlesPrefab, Position, Quaternion.LookRotation(Normal), GameController.instance.destroyObjects);
     }
 
     void SetIdleWeaponAnimation()

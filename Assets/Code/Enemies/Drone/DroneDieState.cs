@@ -38,6 +38,11 @@ public class DroneDieState : State<DroneMachine>
 
         if (entity.droneRenderer[0].material.color.a <= 0)
         {
+            GameObject drop = CalculateDropChance(entity);
+
+            if(drop!=null)
+                GameObject.Instantiate(drop, entity.transform);
+
             GameObject.Destroy(entity.gameObject);
         }
     }

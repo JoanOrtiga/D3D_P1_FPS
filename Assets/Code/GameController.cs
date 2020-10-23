@@ -1,15 +1,50 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    public FPS_CharacterController player;
+    public static GameController instance;
+
     public Transform destroyObjects;
+
+    public bool lockCursor = true;
+
+    public int levelToLoad;
+
+    public List<RestartableObject> restartableObjects;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this);
+        }
+
+    }
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        if (lockCursor)
+            Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    public void RestartScene()
+    {
+        //UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+
+
+    }
+
+    public void LoadNextLevel(int levelToLoad)
+    {
+        SceneManager.LoadScene(levelToLoad);
     }
 
     /* [Header("UI")]
