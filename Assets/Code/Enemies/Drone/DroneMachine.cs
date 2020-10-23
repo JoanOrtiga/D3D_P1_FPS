@@ -30,6 +30,7 @@ public class DroneMachine : MonoBehaviour
     [Header("ATTACK")]
     public float minDistanceToAttack = 3.0f;
     public float maxDistanceToAttack = 7.0f;
+    public float rotationAttackLerp = 0.05f;
 
     [Header("PATROL")]
     public List<Transform> waypoints;
@@ -40,6 +41,15 @@ public class DroneMachine : MonoBehaviour
     public float coneAngle = 60f;
     public LayerMask sightLayerMask;
 
+    [Header("DIE")]
+    [Tooltip("Chances must be a total of 100%")]
+    public List<DropChance> droppingItems;
+    [Tooltip("y must be between 1 and 0")]
+    public AnimationCurve fadeOut;
+    [HideInInspector] public Material material;
+    public Renderer[] droneRenderer { get; private set; }
+
+
     [Header("REFERENCES")]
     public FPS_CharacterController player;
     public Transform eyes;
@@ -47,6 +57,7 @@ public class DroneMachine : MonoBehaviour
     [Header("HEALTH")]
     public int maxHP = 100;
     private int currentHP;
+
 
     private void Awake()
     {
@@ -58,12 +69,16 @@ public class DroneMachine : MonoBehaviour
         currentHP = maxHP;
 
         stateMachine = new StateMachine<DroneMachine>(this);
-        stateMachine.ChangeState(DroneIdleState.Instance);
+        stateMachine.ChangeState(DroneDieState.Instance);
+
+        droneRenderer = GetComponentsInChildren<Renderer>();
+
+        material = new Material(droneRenderer[0].material);
     }
 
     private void Update()
     {
-        print(stateMachine.CurrentState());
+       // print(stateMachine.CurrentState());
 
         stateMachine.UpdateMachine();
     }
@@ -95,6 +110,8 @@ public class DroneMachine : MonoBehaviour
         float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position);
         return distanceToPlayer < maxDistanceToAttack;
     }
+
+    
 }
 
 
