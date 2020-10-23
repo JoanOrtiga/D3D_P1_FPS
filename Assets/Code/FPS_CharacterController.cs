@@ -177,16 +177,26 @@ public class FPS_CharacterController : RestartableObject
 
     public void LoseHeal(float incomingDamage)
     {
-        if (currentShield - (incomingDamage * recieveDamageShieldPercentatge / 100) >= 0)
+        if(Mathf.RoundToInt(currentShield) == 0)
         {
-            currentShield = currentShield - incomingDamage * recieveDamageShieldPercentatge / 100;
-            currentHeal = currentHeal - incomingDamage * recieveDamageHealPercentatge / 100;
+            currentHeal -= incomingDamage;
         }
         else
         {
-            currentHeal -= currentHeal - (incomingDamage * recieveDamageHealPercentatge / 100 + ((incomingDamage * recieveDamageShieldPercentatge / 100) - currentShield));
-            currentShield = 0;
+            if (currentShield - (incomingDamage * recieveDamageShieldPercentatge / 100) >= 0)
+            {
+                currentShield = currentShield - incomingDamage * recieveDamageShieldPercentatge / 100;
+                currentHeal = currentHeal - incomingDamage * recieveDamageHealPercentatge / 100;
+            }
+            else
+            {
+                currentHeal -= currentHeal - (incomingDamage * recieveDamageHealPercentatge / 100 + ((incomingDamage * recieveDamageShieldPercentatge / 100) - currentShield));
+                currentShield = 0;
+            }
         }
+       
+
+
 
         if (currentHeal <= 0)
         {
