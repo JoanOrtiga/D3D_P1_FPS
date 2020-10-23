@@ -16,16 +16,14 @@ public class DroneAlertState : State<DroneMachine>
     {
         entity.pNavMeshAgent.isStopped = true;
 
-        entity.timer = entity.searchTime;
+        entity.startRotation = entity.transform.rotation.eulerAngles.y;
     }
 
     public override void Execute(DroneMachine entity)
     {
         entity.transform.Rotate(new Vector3(0, entity.rotateSpeedAlert * Time.deltaTime, 0));
 
-        entity.timer -= Time.deltaTime;
-
-        if (entity.timer <= 0)
+        if (entity.transform.rotation.eulerAngles.y > entity.startRotation + 360)
         {
             entity.pStateMachine.ChangeState(DronePatrolState.Instance);
         }

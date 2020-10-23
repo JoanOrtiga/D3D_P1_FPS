@@ -36,7 +36,7 @@ public class FPS_CharacterController : RestartableObject
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode sprintKey = KeyCode.LeftShift;
 
-    [Header("Heal, Shield & Points")]
+    [Header("HEAL, SHIELDS & POINTS")]
     public float maxHeal;
     private float currentHeal;
 
@@ -49,7 +49,7 @@ public class FPS_CharacterController : RestartableObject
     public int currentPoints;
     
 
-    [Header("References")]
+    [Header("REFERENCES")]
     public PlayerStatsUI updateUI;
     public Gun gunReference;
 
