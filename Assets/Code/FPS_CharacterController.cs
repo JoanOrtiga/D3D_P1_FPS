@@ -72,8 +72,8 @@ public class FPS_CharacterController : RestartableObject
         currentHeal = maxHeal;
         currentShield = maxShield;
 
-        updateUI.UpdateHeal(currentHeal);
-        updateUI.UpdateShield(currentShield);
+        updateUI.UpdateHeal(Mathf.RoundToInt(currentHeal));
+        updateUI.UpdateShield(Mathf.RoundToInt(currentShield));
         
         if(gunReference != null)
         {
@@ -155,7 +155,7 @@ public class FPS_CharacterController : RestartableObject
         {
             currentShield = Mathf.Min(currentShield + shield, maxShield);
 
-            updateUI.UpdateShield(currentShield);
+            updateUI.UpdateShield(Mathf.RoundToInt(currentShield));
 
             return true;
         }
@@ -169,7 +169,7 @@ public class FPS_CharacterController : RestartableObject
         {
             currentHeal = Mathf.Min(currentHeal + heal, maxHeal);
 
-            updateUI.UpdateHeal(currentHeal);
+            updateUI.UpdateHeal(Mathf.RoundToInt(currentHeal));
 
             return true;
         }
