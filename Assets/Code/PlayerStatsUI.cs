@@ -15,12 +15,12 @@ public class PlayerStatsUI : MonoBehaviour
         ammoText.text = ammo + " / " + ammoInMagazine;
     }
 
-    public void UpdateHeal(float heal)
+    public void UpdateHeal(int heal)
     {
         healText.text = heal.ToString();
     }
 
-    public void UpdateShield(float shield)
+    public void UpdateShield(int shield)
     {
         shieldText.text = shield.ToString();
     }

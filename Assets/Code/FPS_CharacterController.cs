@@ -193,14 +193,18 @@ public class FPS_CharacterController : RestartableObject
             print("Has Mort");
         }
 
-        updateUI.UpdateHeal(currentHeal);
-        updateUI.UpdateShield(currentShield);
+        updateUI.UpdateHeal(Mathf.RoundToInt(currentHeal));
+        updateUI.UpdateShield(Mathf.RoundToInt(currentShield));
     }
     public void addPoints(int PointsAmmount)
     {
         currentPoints += PointsAmmount;
         updateUI.UpdatePoints(currentPoints);
     }
+
+
+
+
     public override void RestartObject()
     {
         base.RestartObject();
