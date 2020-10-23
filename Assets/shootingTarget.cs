@@ -24,4 +24,19 @@ public class shootingTarget : MonoBehaviour
         fps.addPoints(points);
         anim.Play("hit");
     }
-}
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log(other.tag);
+        if (other.CompareTag("Respawn"))
+        {
+            this.anim.SetBool("reset", true);
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Respawn"))
+        {
+            this.anim.SetBool("reset", false);
+        }
+    }
+  }
