@@ -35,6 +35,14 @@ public class GameController : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
     }
 
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.O))
+        {
+            RestartScene();
+        }
+    }
+
     public void RestartScene()
     {
         //UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
