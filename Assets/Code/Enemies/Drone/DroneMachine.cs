@@ -58,14 +58,15 @@ public class DroneMachine : RestartableObject
     public int maxHP = 100;
     private int currentHP;
 
-
     private void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         currentHP = maxHP;
 
         stateMachine = new StateMachine<DroneMachine>(this);

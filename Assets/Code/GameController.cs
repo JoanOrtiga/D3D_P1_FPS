@@ -27,12 +27,16 @@ public class GameController : MonoBehaviour
             Destroy(this);
         }
 
+
+        restartableObjects = new List<RestartableObject>();
     }
 
     private void Start()
     {
         if (lockCursor)
             Cursor.lockState = CursorLockMode.Locked;
+
+        
     }
 
     private void Update()
@@ -55,6 +59,8 @@ public class GameController : MonoBehaviour
 
     public void LoadNextLevel(int levelToLoad)
     {
+        restartableObjects.Clear();
+
         SceneManager.LoadScene(levelToLoad);
     }
 

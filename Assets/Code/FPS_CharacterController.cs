@@ -194,9 +194,9 @@ public class FPS_CharacterController : RestartableObject
                 currentShield = 0;
             }
         }
-       
 
-
+        currentHeal = Mathf.Clamp(currentHeal, 0, maxHeal);
+        currentShield = Mathf.Clamp(currentShield, 0, maxShield);
 
         if (currentHeal <= 0)
         {
