@@ -1325,6 +1325,9 @@ MonoBehaviour:
   restartableObjects: []
   gameOverCanvas: {fileID: 1577138576}
   isPaused: 0
+  enemyLifeBar: {fileID: 6305870535920627348}
+  loadNextSceneBar: {fileID: 0}
+  LoadSceneCanvas: {fileID: 6305870535920627349}
 --- !u!4 &1193517898
 Transform:
   m_ObjectHideFlags: 0
@@ -2266,6 +2269,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8624d65945253344a8d69aaab0b27242, type: 3}
+--- !u!224 &6305870535920627348 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4005235199802469598, guid: 8624d65945253344a8d69aaab0b27242, type: 3}
+  m_PrefabInstance: {fileID: 6305870535920627347}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6305870535920627349 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3303023613198496125, guid: 8624d65945253344a8d69aaab0b27242, type: 3}
+  m_PrefabInstance: {fileID: 6305870535920627347}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6768890014691495348
 PrefabInstance:
   m_ObjectHideFlags: 0

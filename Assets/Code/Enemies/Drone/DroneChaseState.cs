@@ -15,6 +15,8 @@ public class DroneChaseState : State<DroneMachine>
         entity.timer = 0.0f;
 
         CalculateChasePosition(entity);
+
+        entity.animator.SetInteger(entity.animationState, 1);
     }
 
     public override void Execute(DroneMachine entity)

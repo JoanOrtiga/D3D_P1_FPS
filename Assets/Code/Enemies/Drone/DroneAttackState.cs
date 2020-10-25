@@ -15,6 +15,7 @@ public class DroneAttackState : State<DroneMachine>
     public override void Enter(DroneMachine entity)
     {
         entity.timer = 0.0f;
+        entity.animator.SetInteger(entity.animationState, 0);
     }
 
     public override void Execute(DroneMachine entity)
@@ -27,6 +28,22 @@ public class DroneAttackState : State<DroneMachine>
         entity.transform.rotation = Quaternion.Slerp(entity.transform.rotation, rotation, entity.rotationAttackLerp);
 
         entity.timer -= Time.deltaTime;
+
+        Debug.Log(entity.transform.rotation.eulerAngles.y - rotation.eulerAngles.y);
+
+        if(entity.transform.rotation.eulerAngles.y - rotation.eulerAngles.y >= -5f && entity.transform.rotation.eulerAngles.y - rotation.eulerAngles.y <= 5f)
+        {
+            entity.animator.SetInteger(entity.animationState, 0);
+
+        }
+        else if (entity.transform.rotation.eulerAngles.y - rotation.eulerAngles.y >= 0f)
+        {
+            entity.animator.SetInteger(entity.animationState, 2);
+        }
+        else
+        {
+            entity.animator.SetInteger(entity.animationState, 3);
+        }
 
         if (entity.SeesPlayer())
         {

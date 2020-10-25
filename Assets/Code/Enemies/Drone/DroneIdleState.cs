@@ -16,6 +16,8 @@ public class DroneIdleState : State<DroneMachine>
     {
         entity.pNavMeshAgent.isStopped = true;
         entity.timer = entity.stayIdleTime;
+
+        entity.animator.SetInteger(entity.animationState, 0);
     }
 
     public override void Execute(DroneMachine entity)

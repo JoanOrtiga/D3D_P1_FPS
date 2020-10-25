@@ -24,6 +24,8 @@ public class DronePatrolState : State<DroneMachine>
 
         entity.pNavMeshAgent.isStopped = false;
         MoveToNextPatrolPosition(entity);
+
+        entity.animator.SetInteger(entity.animationState, 1);
     }
 
     public override void Execute(DroneMachine entity)

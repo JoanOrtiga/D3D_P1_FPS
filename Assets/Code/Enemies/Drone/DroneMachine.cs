@@ -56,6 +56,10 @@ public class DroneMachine : Enemy
     public FPS_CharacterController player;
     public Transform eyes;
 
+    //Animation
+    public Animator animator { get; private set; }
+    public string animationState { get; private set; }
+        
     [Header("HEALTH")]
     public int maxHP = 100;
     public int currentHP { get; private set; }
@@ -64,6 +68,9 @@ public class DroneMachine : Enemy
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         droneRenderer = GetComponentsInChildren<Renderer>();
+        animator = GetComponent<Animator>();
+
+        animationState = "StateParameter";
     }
 
     protected override void Start()

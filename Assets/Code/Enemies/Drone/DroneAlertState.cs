@@ -17,6 +17,8 @@ public class DroneAlertState : State<DroneMachine>
         entity.pNavMeshAgent.isStopped = true;
 
         entity.startRotation = entity.transform.rotation.eulerAngles.y;
+
+        entity.animator.SetInteger(entity.animationState, 3);
     }
 
     public override void Execute(DroneMachine entity)
