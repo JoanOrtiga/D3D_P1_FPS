@@ -151,17 +151,19 @@ public class Gun : RestartableObject
     private IEnumerator Reload()
     {
         SetReloadingWeaponAnimation();
-
+        
         reloading = true;
-
+        
         yield return new WaitForSeconds(reloadingTime);
-
+        gunAudio.clip = loadMagazine;
+        gunAudio.Play();
         reloading = false;
-
+        
         int ammoToBeLoaded = ammoInMagazines - currentAmmo;
 
         if (ammoToBeLoaded > currentAmmoMagazines)
         {
+           
             currentAmmo += currentAmmoMagazines;
             currentAmmoMagazines = 0;
         }
@@ -170,7 +172,7 @@ public class Gun : RestartableObject
             currentAmmoMagazines = currentAmmoMagazines - ammoToBeLoaded;
             currentAmmo = ammoInMagazines;
         }
-
+        
         updateUI.UpdateAmmo(currentAmmo, currentAmmoMagazines);
     }
 

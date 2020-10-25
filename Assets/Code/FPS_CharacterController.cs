@@ -98,9 +98,22 @@ public class FPS_CharacterController : RestartableObject
         Vector3 l_Forward = transform.forward;
 
         if (Input.GetKey(rightMovement))
+        {
             l_Movement += l_Right;
+            if (walk.isPlaying != true)
+            {
+                walk.Play();
+            }
+        }
         if (Input.GetKey(leftMovement))
+        {  
             l_Movement += -l_Right;
+        
+            if (walk.isPlaying != true)
+            {
+                walk.Play();
+            }
+        }
         if (Input.GetKey(frontMovement))
         {
             l_Movement += l_Forward;
