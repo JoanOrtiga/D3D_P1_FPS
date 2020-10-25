@@ -61,6 +61,7 @@ public class DroneMachine : Enemy
     private void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+        droneRenderer = GetComponentsInChildren<Renderer>();
     }
 
     protected override void Start()
@@ -71,12 +72,14 @@ public class DroneMachine : Enemy
 
         hpBar.fillAmount = currentHP * 100 / maxHP;
 
+       
+        
+
+        material = new Material(droneRenderer[0].material);
+
         stateMachine = new StateMachine<DroneMachine>(this);
         stateMachine.ChangeState(DroneIdleState.Instance);
 
-        droneRenderer = GetComponentsInChildren<Renderer>();
-
-        material = new Material(droneRenderer[0].material);
     }
 
     private void Update()
@@ -120,15 +123,16 @@ public class DroneMachine : Enemy
 
     private void HPBarUpdate()
     {
-        print(GetComponentInChildren<Renderer>().isVisible);
 
-        if (Physics.Linecast(transform.position, player.transform.position, sightLayerMask) || !GetComponentInChildren<Renderer>().isVisible)
+        bool hit =  Physics.Linecast(transform.position, player.transform.position, sightLayerMask);
+
+        if (hit || !droneRenderer[0].isVisible)
         {
             if(hpBar.gameObject.activeSelf)
                 hpBar.gameObject.SetActive(false);
             return;
         }
-        else if(!Physics.Linecast(transform.position, player.transform.position, sightLayerMask) && GetComponentInChildren<Renderer>().isVisible)
+        else if(!hit && droneRenderer[0].isVisible)
         {
             if (!hpBar.gameObject.activeSelf)
                 hpBar.gameObject.SetActive(true);
@@ -140,6 +144,18 @@ public class DroneMachine : Enemy
         position.y *= hpBar.canvas.pixelRect.size.y;
 
         hpBar.rectTransform.anchoredPosition = position;
+    }
+
+    public override void RestartObject()
+    {
+        base.RestartObject();
+
+        stateMachine.ChangeState(DroneIdleState.Instance);
+
+        for (int i = 0; i < droneRenderer.Length; i++)
+        {
+            droneRenderer[i].material.color = new Color(droneRenderer[i].material.color.r, droneRenderer[i].material.color.g, droneRenderer[i].material.color.b, 0);
+        }
     }
 }
 
