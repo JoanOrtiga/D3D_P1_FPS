@@ -313,6 +313,44 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 655293630}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+<<<<<<< HEAD
+=======
+--- !u!1 &660446552
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 660446553}
+  m_Layer: 5
+  m_Name: LifeBar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &660446553
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 660446552}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6170989087845969867}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+>>>>>>> main
 --- !u!1 &678395844
 GameObject:
   m_ObjectHideFlags: 0
@@ -628,10 +666,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e50c3f1a22be1ec45ba646a298564ea0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
   destroyObjects: {fileID: 0}
   lockCursor: 1
   levelToLoad: 0
   restartableObjects: []
+=======
+  destroyObjects: {fileID: 1388762165}
+  lockCursor: 1
+  levelToLoad: 0
+  restartableObjects: []
+  gameOverCanvas: {fileID: 0}
+  isPaused: 0
+  enemyLifeBar: {fileID: 660446553}
+>>>>>>> main
 --- !u!4 &1003016866
 Transform:
   m_ObjectHideFlags: 0
@@ -1076,6 +1124,39 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1317203502}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+<<<<<<< HEAD
+=======
+--- !u!1 &1388762164
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1388762165}
+  m_Layer: 0
+  m_Name: DestroyObjects
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1388762165
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388762164}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+>>>>>>> main
 --- !u!1 &1561250972
 GameObject:
   m_ObjectHideFlags: 0
@@ -1161,13 +1242,21 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1561250972}
+<<<<<<< HEAD
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+=======
+  m_LocalRotation: {x: 0.6175, y: 0.18883485, z: 0.0811106, w: 0.7592472}
+>>>>>>> main
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+<<<<<<< HEAD
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+=======
+  m_LocalEulerAnglesHint: {x: 65.099, y: 66.77, z: 57.822}
+>>>>>>> main
 --- !u!1 &1654380808
 GameObject:
   m_ObjectHideFlags: 0
@@ -1658,6 +1747,7 @@ PrefabInstance:
       value: Enemy - Drone
       objectReference: {fileID: 0}
     - target: {fileID: 3578484716886602260, guid: 341900c117898c74a9e5d37a15ca1d04, type: 3}
+<<<<<<< HEAD
       propertyPath: droppingItems.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -1749,6 +1839,11 @@ PrefabInstance:
       propertyPath: fadeOut.m_PreInfinity
       value: 2
       objectReference: {fileID: 0}
+=======
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1884022640}
+>>>>>>> main
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 341900c117898c74a9e5d37a15ca1d04, type: 3}
 --- !u!224 &6170989086552099104
@@ -2228,6 +2323,10 @@ RectTransform:
   m_Children:
   - {fileID: 6305870536987993798}
   - {fileID: 6305870536318408739}
+<<<<<<< HEAD
+=======
+  - {fileID: 660446553}
+>>>>>>> main
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

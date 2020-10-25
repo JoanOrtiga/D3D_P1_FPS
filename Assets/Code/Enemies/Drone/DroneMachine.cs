@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class DroneMachine : RestartableObject
+public class DroneMachine : Enemy
 {
     private StateMachine<DroneMachine> stateMachine;
     public StateMachine<DroneMachine> pStateMachine
@@ -69,6 +69,8 @@ public class DroneMachine : RestartableObject
 
         currentHP = maxHP;
 
+        hpBar.fillAmount = currentHP * 100 / maxHP;
+
         stateMachine = new StateMachine<DroneMachine>(this);
         stateMachine.ChangeState(DroneIdleState.Instance);
 
@@ -79,9 +81,13 @@ public class DroneMachine : RestartableObject
 
     private void Update()
     {
-       // print(stateMachine.CurrentState());
+        // print(stateMachine.CurrentState());
 
         stateMachine.UpdateMachine();
+
+        if (hpBar != null)
+            HPBarUpdate();
+
     }
 
     public bool SeesPlayer()
@@ -112,7 +118,29 @@ public class DroneMachine : RestartableObject
         return distanceToPlayer < maxDistanceToAttack;
     }
 
-    
+    private void HPBarUpdate()
+    {
+        print(GetComponentInChildren<Renderer>().isVisible);
+
+        if (Physics.Linecast(transform.position, player.transform.position, sightLayerMask) || !GetComponentInChildren<Renderer>().isVisible)
+        {
+            if(hpBar.gameObject.activeSelf)
+                hpBar.gameObject.SetActive(false);
+            return;
+        }
+        else if(!Physics.Linecast(transform.position, player.transform.position, sightLayerMask) && GetComponentInChildren<Renderer>().isVisible)
+        {
+            if (!hpBar.gameObject.activeSelf)
+                hpBar.gameObject.SetActive(true);
+        }
+
+        Vector2 position = GameController.instance.mainCamera.WorldToViewportPoint(transform.position + hpBarOffSet);
+
+        position.x *= hpBar.canvas.pixelRect.size.x;
+        position.y *= hpBar.canvas.pixelRect.size.y;
+
+        hpBar.rectTransform.anchoredPosition = position;
+    }
 }
 
 
