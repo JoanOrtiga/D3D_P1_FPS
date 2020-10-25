@@ -106,7 +106,8 @@ public class GameManager : MonoBehaviour
 
         while (!asyncLoad.isDone)
         {
-            loadNextSceneBar.UpdateLevelBar(asyncLoad.progress);
+            if(loadNextSceneBar != null)
+                loadNextSceneBar.UpdateLevelBar(asyncLoad.progress);
 
             yield return null;
         }

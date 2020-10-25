@@ -6,8 +6,6 @@ public class GameOver : MonoBehaviour
 {
     public void Retry()
     {
-
-        print("Hola");
         GameManager.instance.RestartScene();
         gameObject.SetActive(false);
     }

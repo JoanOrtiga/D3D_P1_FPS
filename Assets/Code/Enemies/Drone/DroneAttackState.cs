@@ -29,8 +29,6 @@ public class DroneAttackState : State<DroneMachine>
 
         entity.timer -= Time.deltaTime;
 
-        Debug.Log(entity.transform.rotation.eulerAngles.y - rotation.eulerAngles.y);
-
         if(entity.transform.rotation.eulerAngles.y - rotation.eulerAngles.y >= -5f && entity.transform.rotation.eulerAngles.y - rotation.eulerAngles.y <= 5f)
         {
             entity.animator.SetInteger(entity.animationState, 0);

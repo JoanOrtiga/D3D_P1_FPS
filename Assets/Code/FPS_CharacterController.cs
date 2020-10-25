@@ -238,8 +238,6 @@ public class FPS_CharacterController : RestartableObject
                 
                 currentHeal = currentHeal - (incomingDamage * recieveDamageHealPercentatge / 100 + ((incomingDamage * recieveDamageShieldPercentatge / 100) - currentShield));
                 currentShield = 0;
-
-                print(currentHeal);
             }
         }
 
