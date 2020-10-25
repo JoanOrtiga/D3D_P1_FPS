@@ -23,7 +23,7 @@ public class FPS_CharacterController : RestartableObject
     private float currentMovementSpeed = 0f;
     private float verticalSpeed;
     public float jumpSpeed = 2.5f;
-    public float sensitivy = 0.1f;
+    public float sensitivy = 0.02f;
 
     private bool onGround = true;
     private CollisionFlags collisionFlags;
