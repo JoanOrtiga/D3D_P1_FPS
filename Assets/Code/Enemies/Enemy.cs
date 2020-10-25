@@ -18,4 +18,13 @@ public class Enemy : RestartableObject
 
         base.Start();
     }
+
+    public override void RestartObject()
+    {
+        gameObject.SetActive(true);
+
+        base.RestartObject();
+
+        
+    }
 }

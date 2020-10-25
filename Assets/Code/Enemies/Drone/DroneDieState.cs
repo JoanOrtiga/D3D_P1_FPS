@@ -43,7 +43,7 @@ public class DroneDieState : State<DroneMachine>
             if(drop!=null)
                 GameObject.Instantiate(drop, entity.transform);
 
-            GameObject.Destroy(entity.gameObject);
+            entity.gameObject.SetActive(false);
         }
     }
 
