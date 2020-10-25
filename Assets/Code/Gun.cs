@@ -123,6 +123,11 @@ public class Gun : RestartableObject
                 GameObject.Instantiate(impactAudioNormalPrefab, l_RayCastHit.point, Quaternion.LookRotation(l_RayCastHit.normal));
 
             }
+            if (l_RayCastHit.collider.gameObject.CompareTag("enemy"))
+            {
+                l_RayCastHit.collider.gameObject.GetComponentInParent<DroneMachine>().RecieveDamage(gunDamage);
+
+            }
         }
 
         SetShootWeaponAnimation();
