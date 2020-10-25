@@ -1290,6 +1290,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1142864600 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 647222843, guid: d7a70cbec7baff946b9648a7cd8f4d4f, type: 3}
+  m_PrefabInstance: {fileID: 2010875987}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 475e0e9828677714abc7b6dc34747fe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1193517896
 GameObject:
   m_ObjectHideFlags: 0
@@ -1444,6 +1455,10 @@ PrefabInstance:
       propertyPath: impactAudioNormalPrefab
       value: 
       objectReference: {fileID: 6931096689034598278, guid: fe513ab7de0b7554eb7e29a694b29fa3, type: 3}
+    - target: {fileID: 1335371365, guid: f91c3259554317e43814c686fb5da229, type: 3}
+      propertyPath: moving
+      value: 
+      objectReference: {fileID: 2005280118}
     - target: {fileID: 3480997875836538365, guid: f91c3259554317e43814c686fb5da229, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1794,6 +1809,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2005280118 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4088235834564926574, guid: d7a70cbec7baff946b9648a7cd8f4d4f, type: 3}
+  m_PrefabInstance: {fileID: 2010875987}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2010875987
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1813,10 +1833,42 @@ PrefabInstance:
       propertyPath: m_TagString
       value: metal
       objectReference: {fileID: 0}
+    - target: {fileID: 647222842, guid: d7a70cbec7baff946b9648a7cd8f4d4f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.0012491504
+      objectReference: {fileID: 0}
+    - target: {fileID: 647222842, guid: d7a70cbec7baff946b9648a7cd8f4d4f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99905705
+      objectReference: {fileID: 0}
+    - target: {fileID: 647222842, guid: d7a70cbec7baff946b9648a7cd8f4d4f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0.143
+      objectReference: {fileID: 0}
+    - target: {fileID: 647222842, guid: d7a70cbec7baff946b9648a7cd8f4d4f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.043398727
+      objectReference: {fileID: 0}
+    - target: {fileID: 647222842, guid: d7a70cbec7baff946b9648a7cd8f4d4f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.000054262702
+      objectReference: {fileID: 0}
+    - target: {fileID: 647222842, guid: d7a70cbec7baff946b9648a7cd8f4d4f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -4.975
+      objectReference: {fileID: 0}
+    - target: {fileID: 647222842, guid: d7a70cbec7baff946b9648a7cd8f4d4f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -0.012
+      objectReference: {fileID: 0}
     - target: {fileID: 647222843, guid: d7a70cbec7baff946b9648a7cd8f4d4f, type: 3}
       propertyPath: pj
       value: 
       objectReference: {fileID: 1463129429}
+    - target: {fileID: 647222843, guid: d7a70cbec7baff946b9648a7cd8f4d4f, type: 3}
+      propertyPath: hited
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 736289299, guid: d7a70cbec7baff946b9648a7cd8f4d4f, type: 3}
       propertyPath: m_TagString
       value: metal
@@ -1857,6 +1909,18 @@ PrefabInstance:
       propertyPath: pj
       value: 
       objectReference: {fileID: 1463129429}
+    - target: {fileID: 1132590041, guid: d7a70cbec7baff946b9648a7cd8f4d4f, type: 3}
+      propertyPath: targetMoving
+      value: 
+      objectReference: {fileID: 1142864600}
+    - target: {fileID: 1132590042, guid: d7a70cbec7baff946b9648a7cd8f4d4f, type: 3}
+      propertyPath: MaxDistance
+      value: 3.2333832
+      objectReference: {fileID: 0}
+    - target: {fileID: 1132590042, guid: d7a70cbec7baff946b9648a7cd8f4d4f, type: 3}
+      propertyPath: m_Volume
+      value: 0.773
+      objectReference: {fileID: 0}
     - target: {fileID: 1224037710, guid: d7a70cbec7baff946b9648a7cd8f4d4f, type: 3}
       propertyPath: m_TagString
       value: metal

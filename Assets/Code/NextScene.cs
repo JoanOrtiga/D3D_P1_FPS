@@ -32,6 +32,11 @@ public class NextScene : MonoBehaviour
             }
         }
     }
-   
+    private void OnTriggerExit(Collider other)
+    {
+        pressE.gameObject.SetActive(false);
+
+    }
+
 }
 

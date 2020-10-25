@@ -27,7 +27,7 @@ public class Gun : RestartableObject
     private float timeCadency;
     public float reloadingTime;
     private bool reloading = false;
-
+    public GameObject moving;
 
     [Header("GUN MAGAZINES")]
     public int ammoInMagazines;
@@ -49,7 +49,7 @@ public class Gun : RestartableObject
     public AudioSource gunAudio;
     public GameObject impactAudioMetalPrefab;
     public GameObject impactAudioNormalPrefab;
-
+    
     protected override void Start()
     {
         GameManager.instance.restartableObjects.Add(this);
@@ -115,6 +115,10 @@ public class Gun : RestartableObject
             if(target != null)
             {
                 target.hit();
+            }
+            if (l_RayCastHit.collider.gameObject.CompareTag("MovingTarget"))
+            {
+               moving.GetComponentInParent<MovingTarget>().hited = true;
             }
             if (l_RayCastHit.collider.gameObject.CompareTag("metal"))
             {
