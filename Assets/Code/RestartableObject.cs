@@ -4,26 +4,26 @@ using UnityEngine;
 
 public class RestartableObject : MonoBehaviour
 {
-    private Vector3 m_InitialPosition;
-    private Quaternion m_InitialRotation;
+    protected Vector3 initialPosition;
+    protected Quaternion initialRotation;
 
     protected virtual void Start()
     {
-        m_InitialPosition = transform.position;
-        m_InitialRotation = transform.rotation;
+        initialPosition = transform.position;
+        initialRotation = transform.rotation;
 
         GameController.instance.restartableObjects.Add(this);
     }
 
     public virtual void RestartObject()
     {
-        transform.position = m_InitialPosition;
-        transform.rotation = m_InitialRotation;
+        transform.position = initialPosition;
+        transform.rotation = initialRotation;
     }
 
     public virtual void SaveStateCheckPoint()
     {
-        m_InitialPosition = transform.position;
-        m_InitialRotation = transform.rotation;
+        initialPosition = transform.position;
+        initialRotation = transform.rotation;
     }
 }

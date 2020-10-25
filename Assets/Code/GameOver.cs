@@ -7,5 +7,6 @@ public class GameOver : MonoBehaviour
     public void Retry()
     {
         GameController.instance.RestartScene();
+        gameObject.SetActive(false);
     }
 }

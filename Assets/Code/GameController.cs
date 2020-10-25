@@ -15,6 +15,10 @@ public class GameController : MonoBehaviour
 
     public List<RestartableObject> restartableObjects;
 
+    public GameObject gameOverCanvas;
+
+    public bool isPaused = false;
+
     private void Awake()
     {
         if (instance == null)
@@ -35,16 +39,15 @@ public class GameController : MonoBehaviour
     {
         if (lockCursor)
             Cursor.lockState = CursorLockMode.Locked;
-
-        
     }
 
-    private void Update()
+    public void GameOver()
     {
-        if (Input.GetKey(KeyCode.O))
-        {
-            RestartScene();
-        }
+        Cursor.lockState = CursorLockMode.None;
+
+        isPaused = true;
+        Time.timeScale = 0;
+        gameOverCanvas.SetActive(true);
     }
 
     public void RestartScene()
@@ -55,6 +58,12 @@ public class GameController : MonoBehaviour
         {
             restartableObjects[i].RestartObject();
         }
+
+        Time.timeScale = 1;
+        isPaused = false;
+
+        if (lockCursor)
+            Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void LoadNextLevel(int levelToLoad)

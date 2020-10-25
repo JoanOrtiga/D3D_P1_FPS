@@ -48,11 +48,13 @@ public class FPS_CharacterController : RestartableObject
     public float recieveDamageShieldPercentatge = 75f;
 
     public int currentPoints;
-    
 
     [Header("REFERENCES")]
     public PlayerStatsUI updateUI;
     public Gun gunReference;
+
+
+    private float initialPitch;
 
     private void Awake()
     {
@@ -66,6 +68,8 @@ public class FPS_CharacterController : RestartableObject
         yaw = transform.rotation.eulerAngles.y;
         pitch = pitchController.localRotation.eulerAngles.x;
 
+        initialPitch = pitch;
+
         verticalSpeed = 0;
         currentMovementSpeed = movementSpeed;
 
@@ -74,8 +78,8 @@ public class FPS_CharacterController : RestartableObject
 
         updateUI.UpdateHeal(Mathf.RoundToInt(currentHeal));
         updateUI.UpdateShield(Mathf.RoundToInt(currentShield));
-        
-        if(gunReference != null)
+
+        if (gunReference != null)
         {
             gunReference.ConfigurateFromPlayer(updateUI);
         }
@@ -83,6 +87,9 @@ public class FPS_CharacterController : RestartableObject
 
     private void Update()
     {
+        if (GameController.instance.isPaused)
+            return;
+
         CameraUpdate();
 
         Vector3 l_Movement = Vector3.zero;
@@ -121,16 +128,27 @@ public class FPS_CharacterController : RestartableObject
 
         collisionFlags = characterController.Move(l_Movement);
 
+       
+
         GravityUpdate();
+
+
+        if (Input.GetKey(KeyCode.O))
+        {
+            currentHeal = 0;
+            updateUI.UpdateHeal(Mathf.RoundToInt(currentHeal));
+
+            GameController.instance.GameOver();
+        }
     }
 
     private void CameraUpdate()
     {
-        float l_MouseAxisX = Input.GetAxis("Mouse X");
-        float l_MouseAxisY = Input.GetAxis("Mouse Y");
+        float mouseAxisX = Input.GetAxis("Mouse X");
+        float mouseAxisY = Input.GetAxis("Mouse Y");
 
-        yaw = yaw + l_MouseAxisX * yawRotationSpeed * sensitivy /** Time.deltaTime*/;
-        pitch = pitch + l_MouseAxisY * pitchRotationSpeed * sensitivy /** Time.deltaTime*/ * -1f; // *-1 to invert mouse.
+        yaw = yaw + mouseAxisX * yawRotationSpeed * sensitivy;
+        pitch = pitch + mouseAxisY * pitchRotationSpeed * sensitivy * -1f; // *-1 to invert mouse.
 
         pitch = Mathf.Clamp(pitch, min_Pitch, max_Pitch);
 
@@ -177,7 +195,7 @@ public class FPS_CharacterController : RestartableObject
 
     public void LoseHeal(float incomingDamage)
     {
-        if(Mathf.RoundToInt(currentShield) == 0)
+        if (Mathf.RoundToInt(currentShield) == 0)
         {
             currentHeal -= incomingDamage;
         }
@@ -200,7 +218,7 @@ public class FPS_CharacterController : RestartableObject
 
         if (currentHeal <= 0)
         {
-            print("Has Mort");
+            GameController.instance.GameOver();
         }
 
         updateUI.UpdateHeal(Mathf.RoundToInt(currentHeal));
@@ -212,12 +230,22 @@ public class FPS_CharacterController : RestartableObject
         updateUI.UpdatePoints(currentPoints);
     }
 
-
-
-
     public override void RestartObject()
     {
+        characterController.enabled = false;
+
         base.RestartObject();
+
+        characterController.enabled = true;
+
+        yaw = initialRotation.eulerAngles.y;
+        pitch = initialPitch;
+
+        currentHeal = maxHeal;
+        currentShield = maxShield;
+
+        updateUI.UpdateHeal(Mathf.RoundToInt(currentHeal));
+        updateUI.UpdateShield(Mathf.RoundToInt(currentShield));
     }
 }
 

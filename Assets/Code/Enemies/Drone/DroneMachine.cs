@@ -70,7 +70,7 @@ public class DroneMachine : RestartableObject
         currentHP = maxHP;
 
         stateMachine = new StateMachine<DroneMachine>(this);
-        stateMachine.ChangeState(DroneDieState.Instance);
+        stateMachine.ChangeState(DroneIdleState.Instance);
 
         droneRenderer = GetComponentsInChildren<Renderer>();
 

@@ -26,7 +26,6 @@ public class shootingTarget : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.tag);
         if (other.CompareTag("Respawn"))
         {
             this.anim.SetBool("reset", true);

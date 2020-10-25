@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gun : MonoBehaviour
+public class Gun : RestartableObject
 {
     [Header("GUN CONTROLS")]
     public KeyCode reloadKey = KeyCode.R;
@@ -37,8 +37,10 @@ public class Gun : MonoBehaviour
 
     private PlayerStatsUI updateUI;
 
-    private void Start()
+    protected override void Start()
     {
+        GameController.instance.restartableObjects.Add(this);
+
         currentAmmo = ammoInMagazines;
         currentAmmoMagazines = maxAmmo;
 
@@ -47,6 +49,9 @@ public class Gun : MonoBehaviour
 
     private void Update()
     {
+        if (GameController.instance.isPaused)
+            return;
+
         timeCadency -= Time.deltaTime;
 
         if (Input.GetKey(shootKey) && reloading == false)
@@ -174,6 +179,15 @@ public class Gun : MonoBehaviour
         updateUI = ui;
 
         updateUI.UpdateAmmo(currentAmmo, currentAmmoMagazines);
+    }
 
+    public override void RestartObject()
+    {
+        currentAmmo = ammoInMagazines;
+        currentAmmoMagazines = maxAmmo;
+        weapon.Play(idleWeapon.name);
+        shootEffect.SetActive(false);
+
+        updateUI.UpdateAmmo(currentAmmo, currentAmmoMagazines);
     }
 }
