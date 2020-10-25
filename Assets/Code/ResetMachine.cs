@@ -10,6 +10,7 @@ public class ResetMachine : MonoBehaviour
     public Animator target1;
     public Animator target2;
     public Animator target3;
+    public MovingTarget targetMoving;
 
     public GameObject Points;
     private float distancePj;
@@ -47,6 +48,7 @@ public class ResetMachine : MonoBehaviour
             target1.SetBool("reset", true);
             target2.SetBool("reset", true);
             target3.SetBool("reset", true);
+            targetMoving.hited = false;
         }
         
     }
