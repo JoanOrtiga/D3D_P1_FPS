@@ -53,8 +53,8 @@ public class FPS_CharacterController : RestartableObject
     public PlayerStatsUI updateUI;
     public Gun gunReference;
 
-
     private float initialPitch;
+    private AudioSource walk;
 
     private void Awake()
     {
@@ -63,6 +63,7 @@ public class FPS_CharacterController : RestartableObject
 
     protected override void Start()
     {
+        walk=this.gameObject.GetComponent<AudioSource>();
         base.Start();
 
         yaw = transform.rotation.eulerAngles.y;
@@ -101,10 +102,21 @@ public class FPS_CharacterController : RestartableObject
         if (Input.GetKey(leftMovement))
             l_Movement += -l_Right;
         if (Input.GetKey(frontMovement))
+        {
             l_Movement += l_Forward;
+            if (walk.isPlaying != true)
+            {
+                walk.Play();
+            }
+        }
         if (Input.GetKey(backMovement))
+        {
             l_Movement += -l_Forward;
-
+            if (walk.isPlaying != true)
+            {
+                walk.Play();
+            }
+        }
         if (Input.GetKeyDown(jumpKey) && onGround)
         {
             verticalSpeed = jumpSpeed;
@@ -118,7 +130,7 @@ public class FPS_CharacterController : RestartableObject
         {
             currentMovementSpeed = movementSpeed;
         }
-
+       
         l_Movement.Normalize();
 
         verticalSpeed = verticalSpeed + Physics.gravity.y * Time.deltaTime;
@@ -140,6 +152,7 @@ public class FPS_CharacterController : RestartableObject
 
             GameController.instance.GameOver();
         }
+      
     }
 
     private void CameraUpdate()
