@@ -15,7 +15,7 @@ public class openDoorWithKey : MonoBehaviour
         {
             hasKey = true;
             other.gameObject.SetActive(false);
-            Debug.LogError("hola Joan, t'has cagat? xDD. banana");
+
         }
     }
 }

@@ -81,13 +81,13 @@ public class DroneMachine : Enemy
 
     private void Update()
     {
-        // print(stateMachine.CurrentState());
+         print(stateMachine.CurrentState());
 
         stateMachine.UpdateMachine();
 
         if (hpBar != null)
             HPBarUpdate();
-
+        print(currentHP);
     }
 
     public bool SeesPlayer()
@@ -153,6 +153,11 @@ public class DroneMachine : Enemy
         {
             droneRenderer[i].material.color = new Color(droneRenderer[i].material.color.r, droneRenderer[i].material.color.g, droneRenderer[i].material.color.b, 0);
         }
+    }
+    public void RecieveDamage(int damage)
+    {
+        currentHP -= damage;
+        stateMachine.ChangeState(DroneHitState.Instance);
     }
 }
 
