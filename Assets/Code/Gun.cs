@@ -37,11 +37,17 @@ public class Gun : MonoBehaviour
 
     private PlayerStatsUI updateUI;
 
+
+    [Header("Sounds")]
+    public AudioClip shooting;
+    public AudioClip unloadMagazine;
+    public AudioClip loadMagazine;
+    public AudioSource gunAudio;
     private void Start()
     {
         currentAmmo = ammoInMagazines;
         currentAmmoMagazines = maxAmmo;
-
+        gunAudio = this.gameObject.GetComponent<AudioSource>();
         SetIdleWeaponAnimation();
     }
 
@@ -72,11 +78,13 @@ public class Gun : MonoBehaviour
 
     private void Shoot()
     {
+        gunAudio.clip = shooting;
+
         Ray l_Ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
         RaycastHit l_RayCastHit;
 
         shootEffect.SetActive(true);
-
+        gunAudio.Play();
         if (Physics.Raycast(l_Ray, out l_RayCastHit, maxDistance, shootLayerMask.value))
         {
             CreateShootHitParticles(l_RayCastHit.point, l_RayCastHit.normal);
@@ -104,7 +112,11 @@ public class Gun : MonoBehaviour
         updateUI.UpdateAmmo(currentAmmo, currentAmmoMagazines);
 
         if (currentAmmo <= 0 && currentAmmoMagazines > 0)
-            StartCoroutine(Reload());
+        {
+            gunAudio.clip = unloadMagazine;
+            gunAudio.Play();
+               StartCoroutine(Reload());
+        }
     }
 
     void CreateShootHitParticles(Vector3 Position, Vector3 Normal)
