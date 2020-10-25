@@ -77,9 +77,6 @@ public class DroneMachine : Enemy
         stateMachine = new StateMachine<DroneMachine>(this);
         stateMachine.ChangeState(DroneIdleState.Instance);
 
-        print("DRONE STARTING");
-
-
     }
 
     private void Update()
@@ -135,8 +132,6 @@ public class DroneMachine : Enemy
             if (!hpBar.gameObject.activeSelf)
                 hpBar.gameObject.SetActive(true);
         }
-
-        print("DRONE ASKING CAMERA");
 
 
         if(GameManager.instance.mainCamera != null)

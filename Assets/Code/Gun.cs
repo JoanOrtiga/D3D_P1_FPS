@@ -37,6 +37,9 @@ public class Gun : RestartableObject
 
     private PlayerStatsUI updateUI;
 
+    [Header("POOL")]
+    public Pool pool;
+
    
 
     [Header("Sounds")]
@@ -97,7 +100,7 @@ public class Gun : RestartableObject
         
         if (Physics.Raycast(l_Ray, out l_RayCastHit, maxDistance, shootLayerMask.value))
         {
-            CreateShootHitParticles(l_RayCastHit.point, l_RayCastHit.normal);
+            CreateShootHitParticles(l_RayCastHit.point, l_RayCastHit.normal, l_RayCastHit.collider.transform);
             ShootableBox health = l_RayCastHit.collider.GetComponent<ShootableBox>();
             shootingTarget target = l_RayCastHit.collider.GetComponent<shootingTarget>();
 
@@ -145,9 +148,9 @@ public class Gun : RestartableObject
         }
     }
 
-    void CreateShootHitParticles(Vector3 Position, Vector3 Normal)
+    void CreateShootHitParticles(Vector3 Position, Vector3 Normal, Transform parent)
     {
-        GameObject.Instantiate(hitCollisionParticlesPrefab, Position, Quaternion.LookRotation(Normal), GameManager.instance.destroyObjects);
+        GameObject.Instantiate(pool.AskForObject(), Position, Quaternion.LookRotation(Normal), parent);
     }
 
     void SetIdleWeaponAnimation()
