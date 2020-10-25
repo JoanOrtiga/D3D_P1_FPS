@@ -56,7 +56,7 @@ public class DroneMachine : Enemy
 
     [Header("HEALTH")]
     public int maxHP = 100;
-    private int currentHP;
+    public int currentHP { get; private set; }
 
     private void Awake()
     {
@@ -77,11 +77,14 @@ public class DroneMachine : Enemy
         stateMachine = new StateMachine<DroneMachine>(this);
         stateMachine.ChangeState(DroneIdleState.Instance);
 
+        print("DRONE STARTING");
+
+
     }
 
     private void Update()
     {
-        print(stateMachine.CurrentState());
+        //print(stateMachine.CurrentState());
 
         stateMachine.UpdateMachine();
 
@@ -133,39 +136,56 @@ public class DroneMachine : Enemy
                 hpBar.gameObject.SetActive(true);
         }
 
-        Vector2 position = GameController.instance.mainCamera.WorldToViewportPoint(transform.position + hpBarOffSet);
+        print("DRONE ASKING CAMERA");
 
-        position.x *= hpBar.canvas.pixelRect.size.x;
-        position.y *= hpBar.canvas.pixelRect.size.y;
 
-        hpBar.rectTransform.anchoredPosition = position;
+        if(GameManager.instance.mainCamera != null)
+        {
+            Vector2 position = GameManager.instance.mainCamera.WorldToViewportPoint(transform.position + hpBarOffSet);
+
+            position.x *= hpBar.canvas.pixelRect.size.x;
+            position.y *= hpBar.canvas.pixelRect.size.y;
+
+            hpBar.rectTransform.anchoredPosition = position;
+        }
+            
     }
 
     private void HealthUpdate()
     {
-        healthBar.fillAmount = currentHP * 100 / maxHP;
+        healthBar.fillAmount = (float)currentHP / maxHP;
     }
 
     public override void RestartObject()
     {
         base.RestartObject();
 
-        stateMachine.ChangeState(DroneIdleState.Instance);
 
         for (int i = 0; i < droneRenderer.Length; i++)
         {
-            droneRenderer[i].material.color = new Color(droneRenderer[i].material.color.r, droneRenderer[i].material.color.g, droneRenderer[i].material.color.b, 0);
+            droneRenderer[i].material.color = new Color(droneRenderer[i].material.color.r, droneRenderer[i].material.color.g, droneRenderer[i].material.color.b, 1);
         }
 
         currentHP = maxHP;
-        HPBarUpdate();
+        HealthUpdate();
+
+        stateMachine.ChangeState(DroneIdleState.Instance);
+
     }
     public void RecieveDamage(int damage)
     {
         currentHP -= damage;
-        stateMachine.ChangeState(DroneHitState.Instance);
-
         HealthUpdate();
+
+        if (currentHP <= 0)
+        {
+            stateMachine.ChangeState(DroneDieState.Instance);
+        }
+        else
+        {
+            stateMachine.ChangeState(DroneHitState.Instance);
+        }
+
     }
 }
 

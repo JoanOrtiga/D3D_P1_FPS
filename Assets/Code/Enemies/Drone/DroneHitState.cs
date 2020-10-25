@@ -18,6 +18,8 @@ public class DroneHitState : State<DroneMachine>
 
     public override void Execute(DroneMachine entity)
     {
+       
+
         entity.pStateMachine.ChangeState(DroneAlertState.Instance);
     }
 

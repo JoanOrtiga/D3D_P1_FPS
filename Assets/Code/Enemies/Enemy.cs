@@ -13,7 +13,7 @@ public class Enemy : RestartableObject
 
     protected override void Start()
     {
-        GameObject bar = Instantiate(hpBarPrefab, GameController.instance.enemyLifeBar);
+        GameObject bar = Instantiate(hpBarPrefab, GameManager.instance.enemyLifeBar);
 
         hpBar = bar.GetComponent<Image>();
         healthBar = bar.transform.GetChild(0).GetComponent<Image>();

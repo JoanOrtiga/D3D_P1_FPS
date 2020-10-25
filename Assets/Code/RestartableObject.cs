@@ -12,7 +12,7 @@ public class RestartableObject : MonoBehaviour
         initialPosition = transform.position;
         initialRotation = transform.rotation;
 
-        GameController.instance.restartableObjects.Add(this);
+        GameManager.instance.restartableObjects.Add(this);
     }
 
     public virtual void RestartObject()

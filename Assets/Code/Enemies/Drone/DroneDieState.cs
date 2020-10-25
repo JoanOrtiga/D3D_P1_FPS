@@ -41,7 +41,7 @@ public class DroneDieState : State<DroneMachine>
             GameObject drop = CalculateDropChance(entity);
 
             if(drop!=null)
-                GameObject.Instantiate(drop, entity.transform);
+                GameObject.Instantiate(drop, entity.transform.position + Vector3.down * 2.3f, new Quaternion(), GameManager.instance.destroyObjects);
 
             entity.gameObject.SetActive(false);
         }

@@ -88,7 +88,7 @@ public class FPS_CharacterController : RestartableObject
 
     private void Update()
     {
-        if (GameController.instance.isPaused)
+        if (GameManager.instance.isPaused)
             return;
 
         CameraUpdate();
@@ -163,7 +163,7 @@ public class FPS_CharacterController : RestartableObject
             currentHeal = 0;
             updateUI.UpdateHeal(Mathf.RoundToInt(currentHeal));
 
-            GameController.instance.GameOver();
+            GameManager.instance.GameOver();
         }
       
     }
@@ -244,7 +244,7 @@ public class FPS_CharacterController : RestartableObject
 
         if (currentHeal <= 0)
         {
-            GameController.instance.GameOver();
+            GameManager.instance.GameOver();
         }
 
         updateUI.UpdateHeal(Mathf.RoundToInt(currentHeal));

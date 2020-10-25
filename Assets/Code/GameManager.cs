@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameController : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-    public static GameController instance;
+    public static GameManager instance;
 
     public Transform destroyObjects;
 
@@ -21,7 +21,12 @@ public class GameController : MonoBehaviour
 
     public Transform enemyLifeBar;
 
-    public Camera mainCamera { get; private set; }
+    public Camera mainCamera { get; set; }
+
+
+
+    public LoadingNextLevel loadNextSceneBar;
+    public GameObject LoadSceneCanvas;
 
     private void Awake()
     {
@@ -64,6 +69,11 @@ public class GameController : MonoBehaviour
             restartableObjects[i].RestartObject();
         }
 
+        for (int i = 0; i < destroyObjects.childCount; i++)
+        {
+            Destroy(destroyObjects.GetChild(i));
+        }
+
         Time.timeScale = 1;
         isPaused = false;
 
@@ -71,16 +81,40 @@ public class GameController : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
     }
 
-    public void LoadNextLevel(int levelToLoad)
+    private void Update()
     {
-        restartableObjects.Clear();
-
-        SceneManager.LoadScene(levelToLoad);
+        if (Input.GetKey(KeyCode.I))
+        {
+            LoadNextLevel(SceneManager.GetActiveScene().buildIndex + 1);
+        }
     }
 
-    private void OnLevelWasLoaded(int level)
+    public void LoadNextLevel(int levelToLoad)
     {
-        mainCamera = Camera.main; 
+        isPaused = true;
+        Time.timeScale = 1f;
+
+        restartableObjects.Clear();
+        LoadSceneCanvas.SetActive(true);
+
+        StartCoroutine(LoadNextScene(levelToLoad));
+    }
+
+    IEnumerator LoadNextScene(int levelToLoad)
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(levelToLoad);
+
+        while (!asyncLoad.isDone)
+        {
+            loadNextSceneBar.UpdateLevelBar(asyncLoad.progress);
+
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(2f);
+
+        isPaused = false;
+        Time.timeScale = 1f;
     }
 
     /* [Header("UI")]

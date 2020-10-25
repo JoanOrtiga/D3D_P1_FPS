@@ -49,7 +49,7 @@ public class Gun : RestartableObject
 
     protected override void Start()
     {
-        GameController.instance.restartableObjects.Add(this);
+        GameManager.instance.restartableObjects.Add(this);
 
         currentAmmo = ammoInMagazines;
         currentAmmoMagazines = maxAmmo;
@@ -59,7 +59,7 @@ public class Gun : RestartableObject
 
     private void Update()
     {
-        if (GameController.instance.isPaused)
+        if (GameManager.instance.isPaused)
             return;
 
         timeCadency -= Time.deltaTime;
@@ -123,6 +123,7 @@ public class Gun : RestartableObject
                 GameObject.Instantiate(impactAudioNormalPrefab, l_RayCastHit.point, Quaternion.LookRotation(l_RayCastHit.normal));
 
             }
+
             if (l_RayCastHit.collider.gameObject.CompareTag("enemy"))
             {
                 l_RayCastHit.collider.gameObject.GetComponentInParent<DroneMachine>().RecieveDamage(gunDamage);
@@ -146,7 +147,7 @@ public class Gun : RestartableObject
 
     void CreateShootHitParticles(Vector3 Position, Vector3 Normal)
     {
-        GameObject.Instantiate(hitCollisionParticlesPrefab, Position, Quaternion.LookRotation(Normal), GameController.instance.destroyObjects);
+        GameObject.Instantiate(hitCollisionParticlesPrefab, Position, Quaternion.LookRotation(Normal), GameManager.instance.destroyObjects);
     }
 
     void SetIdleWeaponAnimation()
