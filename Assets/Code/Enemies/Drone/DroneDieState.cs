@@ -14,6 +14,11 @@ public class DroneDieState : State<DroneMachine>
     public override void Enter(DroneMachine entity)
     {
         entity.timer = 0.0f;
+
+        foreach (Collider item in entity.GetComponentsInChildren<Collider>())
+        {
+            item.enabled = false;
+        }
     }
 
     public override void Execute(DroneMachine entity)

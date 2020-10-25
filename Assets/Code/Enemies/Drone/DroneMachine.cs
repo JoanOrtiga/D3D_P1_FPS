@@ -31,6 +31,8 @@ public class DroneMachine : Enemy
     public float minDistanceToAttack = 3.0f;
     public float maxDistanceToAttack = 7.0f;
     public float rotationAttackLerp = 0.05f;
+    public float attackDamage = 20f;
+    public float attackCooldown = 1f;
 
     [Header("PATROL")]
     public List<Transform> waypoints;
@@ -163,6 +165,11 @@ public class DroneMachine : Enemy
 
         currentHP = maxHP;
         HealthUpdate();
+
+        foreach (Collider item in GetComponentsInChildren<Collider>())
+        {
+            item.enabled = false;
+        }
 
         stateMachine.ChangeState(DroneIdleState.Instance);
 
