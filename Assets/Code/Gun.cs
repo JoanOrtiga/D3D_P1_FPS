@@ -118,7 +118,6 @@ public class Gun : RestartableObject
             }
             if (l_RayCastHit.collider.gameObject.CompareTag("MovingTarget"))
             {
-                Debug.LogError(l_RayCastHit.collider.gameObject.name);
                moving.GetComponentInParent<MovingTarget>().hited = true;
             }
             if (l_RayCastHit.collider.gameObject.CompareTag("metal"))

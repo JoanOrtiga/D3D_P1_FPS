@@ -3904,7 +3904,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d7434af32dd250445a88257e44c02207, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.878
+  m_Volume: 0.674
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -24990,6 +24990,8 @@ MonoBehaviour:
   gameOverCanvas: {fileID: 96051065}
   isPaused: 0
   enemyLifeBar: {fileID: 0}
+  loadNextSceneBar: {fileID: 0}
+  LoadSceneCanvas: {fileID: 0}
 --- !u!4 &1138995263
 Transform:
   m_ObjectHideFlags: 0
