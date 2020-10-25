@@ -135,7 +135,6 @@ public class DroneMachine : Enemy
                 hpBar.gameObject.SetActive(true);
         }
 
-
         if(GameManager.instance.mainCamera != null)
         {
             Vector2 position = GameManager.instance.mainCamera.WorldToViewportPoint(transform.position + hpBarOffSet);
