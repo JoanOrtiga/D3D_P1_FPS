@@ -70,7 +70,7 @@ public class DroneMachine : Enemy
 
         currentHP = maxHP;
 
-        hpBar.fillAmount = currentHP * 100 / maxHP; 
+        HealthUpdate();
 
         material = new Material(droneRenderer[0].material);
 
@@ -81,13 +81,12 @@ public class DroneMachine : Enemy
 
     private void Update()
     {
-         print(stateMachine.CurrentState());
+        print(stateMachine.CurrentState());
 
         stateMachine.UpdateMachine();
 
         if (hpBar != null)
             HPBarUpdate();
-        print(currentHP);
     }
 
     public bool SeesPlayer()
@@ -120,16 +119,15 @@ public class DroneMachine : Enemy
 
     private void HPBarUpdate()
     {
-
-        bool hit =  Physics.Linecast(transform.position, player.transform.position, sightLayerMask);
+        bool hit = Physics.Linecast(transform.position, player.transform.position, sightLayerMask);
 
         if (hit || !droneRenderer[0].isVisible)
         {
-            if(hpBar.gameObject.activeSelf)
+            if (hpBar.gameObject.activeSelf)
                 hpBar.gameObject.SetActive(false);
             return;
         }
-        else if(!hit && droneRenderer[0].isVisible)
+        else if (!hit && droneRenderer[0].isVisible)
         {
             if (!hpBar.gameObject.activeSelf)
                 hpBar.gameObject.SetActive(true);
@@ -143,6 +141,11 @@ public class DroneMachine : Enemy
         hpBar.rectTransform.anchoredPosition = position;
     }
 
+    private void HealthUpdate()
+    {
+        healthBar.fillAmount = currentHP * 100 / maxHP;
+    }
+
     public override void RestartObject()
     {
         base.RestartObject();
@@ -153,11 +156,16 @@ public class DroneMachine : Enemy
         {
             droneRenderer[i].material.color = new Color(droneRenderer[i].material.color.r, droneRenderer[i].material.color.g, droneRenderer[i].material.color.b, 0);
         }
+
+        currentHP = maxHP;
+        HPBarUpdate();
     }
     public void RecieveDamage(int damage)
     {
         currentHP -= damage;
         stateMachine.ChangeState(DroneHitState.Instance);
+
+        HealthUpdate();
     }
 }
 

@@ -8,6 +8,7 @@ public class Enemy : RestartableObject
     [Header("HP BAR")]
     public GameObject hpBarPrefab;
     protected Image hpBar;
+    protected Image healthBar;
     public Vector3 hpBarOffSet = Vector3.up * 0.5f;
 
     protected override void Start()
@@ -15,6 +16,7 @@ public class Enemy : RestartableObject
         GameObject bar = Instantiate(hpBarPrefab, GameController.instance.enemyLifeBar);
 
         hpBar = bar.GetComponent<Image>();
+        healthBar = bar.transform.GetChild(0).GetComponent<Image>();
 
         base.Start();
     }
