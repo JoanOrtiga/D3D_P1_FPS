@@ -5,17 +5,18 @@ using UnityEngine;
 public class backGroundSound : MonoBehaviour
 {
     // Start is called before the first frame update
-    public static backGroundSound backGroundInstance;
+    public static backGroundSound instance;
 
     private void Awake()
     {
-        if(backGroundInstance != null && backGroundInstance != this)
+        if (instance == null)
         {
-            Destroy(this.gameObject);
-            return;
-
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
         }
-        backGroundInstance = this;
-        DontDestroyOnLoad(this);
+        else
+        {
+            Destroy(this);
+        }
     }
 }

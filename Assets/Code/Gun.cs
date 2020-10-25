@@ -44,6 +44,8 @@ public class Gun : RestartableObject
     public AudioClip unloadMagazine;
     public AudioClip loadMagazine;
     public AudioSource gunAudio;
+    public GameObject impactAudioMetalPrefab;
+    public GameObject impactAudioNormalPrefab;
 
     protected override void Start()
     {
@@ -110,6 +112,16 @@ public class Gun : RestartableObject
             if(target != null)
             {
                 target.hit();
+            }
+            if (l_RayCastHit.collider.gameObject.CompareTag("metal"))
+            {
+                GameObject.Instantiate(impactAudioMetalPrefab, l_RayCastHit.point, Quaternion.LookRotation(l_RayCastHit.normal));
+
+            }
+            if (!l_RayCastHit.collider.gameObject.CompareTag("metal"))
+            {
+                GameObject.Instantiate(impactAudioNormalPrefab, l_RayCastHit.point, Quaternion.LookRotation(l_RayCastHit.normal));
+
             }
         }
 

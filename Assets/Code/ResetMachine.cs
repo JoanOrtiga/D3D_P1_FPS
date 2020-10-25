@@ -11,7 +11,9 @@ public class ResetMachine : MonoBehaviour
     public Animator target2;
     public Animator target3;
 
-
+    public GameObject Points;
+    private float distancePj;
+    public GameObject pj;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,12 +24,20 @@ public class ResetMachine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        distancePj=Vector3.Distance(pj.transform.position, this.gameObject.transform.position);
+        if (distancePj <= 25.0f)
+        {
+            Points.SetActive(true);
+        }
+        else
+        {
+            Points.SetActive(false);
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
         pressE.gameObject.SetActive(true);
-        
+       
        
     }
     private void OnTriggerStay(Collider other)
