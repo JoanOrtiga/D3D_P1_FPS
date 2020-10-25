@@ -70,10 +70,7 @@ public class DroneMachine : Enemy
 
         currentHP = maxHP;
 
-        hpBar.fillAmount = currentHP * 100 / maxHP;
-
-       
-        
+        hpBar.fillAmount = currentHP * 100 / maxHP; 
 
         material = new Material(droneRenderer[0].material);
 
