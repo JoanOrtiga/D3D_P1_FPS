@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
 
 
@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour
 
         isPaused = true;
         Time.timeScale = 0;
+
         gameOverCanvas.SetActive(true);
     }
 
@@ -74,11 +75,15 @@ public class GameManager : MonoBehaviour
             Destroy(destroyObjects.GetChild(i));
         }
 
+        print("HOLAAA");
+
         Time.timeScale = 1;
         isPaused = false;
 
         if (lockCursor)
             Cursor.lockState = CursorLockMode.Locked;
+
+    
     }
 
     private void Update()

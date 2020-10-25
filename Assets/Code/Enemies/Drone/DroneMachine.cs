@@ -130,6 +130,10 @@ public class DroneMachine : Enemy
     {
         bool hit = Physics.Linecast(transform.position, player.transform.position, sightLayerMask);
 
+        RaycastHit ry;
+        
+        Physics.Linecast(transform.position, player.transform.position, out ry, sightLayerMask);;
+
         if (hit || !droneRenderer[0].isVisible)
         {
             if (hpBar.gameObject.activeSelf)

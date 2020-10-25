@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttachLifeBarToGameManager : MonoBehaviour
+public class DestroyObjectsGameObject : MonoBehaviour
 {
     private void Awake()
     {
-        GameManager.instance.enemyLifeBar = transform   ;
+        GameManager.instance.destroyObjects = transform;
     }
 }
