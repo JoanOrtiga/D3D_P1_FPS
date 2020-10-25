@@ -92,6 +92,7 @@ public class Gun : RestartableObject
 
         shootEffect.SetActive(true);
         gunAudio.Play();
+        
         if (Physics.Raycast(l_Ray, out l_RayCastHit, maxDistance, shootLayerMask.value))
         {
             CreateShootHitParticles(l_RayCastHit.point, l_RayCastHit.normal);

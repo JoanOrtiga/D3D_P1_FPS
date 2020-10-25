@@ -19,6 +19,10 @@ public class GameController : MonoBehaviour
 
     public bool isPaused = false;
 
+    public Transform enemyLifeBar;
+
+    public Camera mainCamera { get; private set; }
+
     private void Awake()
     {
         if (instance == null)
@@ -33,6 +37,7 @@ public class GameController : MonoBehaviour
 
 
         restartableObjects = new List<RestartableObject>();
+        mainCamera = Camera.main;
     }
 
     private void Start()
@@ -71,6 +76,11 @@ public class GameController : MonoBehaviour
         restartableObjects.Clear();
 
         SceneManager.LoadScene(levelToLoad);
+    }
+
+    private void OnLevelWasLoaded(int level)
+    {
+        mainCamera = Camera.main; 
     }
 
     /* [Header("UI")]

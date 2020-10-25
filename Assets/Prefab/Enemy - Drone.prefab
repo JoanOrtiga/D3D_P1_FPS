@@ -182,6 +182,72 @@ Transform:
   m_Father: {fileID: 3578484717076813778}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3578484716886602260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3578484716886635722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b49bab4158e2e24f8665ad3a7d8e25e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpBarPrefab: {fileID: 2265206556452702005, guid: 2cdf9369efc4e5b40aa3fca7d6537225, type: 3}
+  stayIdleTime: 3
+  maxDistanceToAlert: 5
+  rotateSpeedAlert: 100
+  startRotation: 0
+  minDistanceToAttack: 3
+  maxDistanceToAttack: 7
+  rotationAttackLerp: 0.05
+  waypoints:
+  - {fileID: 3578484715073238400}
+  - {fileID: 3578484716736352908}
+  - {fileID: 3578484715661666760}
+  - {fileID: 3578484715955127072}
+  currentWaypointID: 0
+  maxDistanceToRaycast: 15
+  coneAngle: 90
+  sightLayerMask:
+    serializedVersion: 2
+    m_Bits: 55
+  droppingItems:
+  - item: {fileID: 6767075213574570511, guid: 0d05503534a210c4882edfeee8575b6b, type: 3}
+    droppingChance: 25
+  - item: {fileID: 7792593270835248174, guid: d28e15ea8ef83114ba6eee705bdd0b2a, type: 3}
+    droppingChance: 25
+  - item: {fileID: 3769569747783204706, guid: f86ffa140fe1f924aa9061b86e07b454, type: 3}
+    droppingChance: 25
+  fadeOut:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0.031918805
+      outSlope: 0.031918805
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.020709282
+    - serializedVersion: 3
+      time: 2
+      value: 0
+      inSlope: 0.031805295
+      outSlope: 0.031805295
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.014077127
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  material: {fileID: 0}
+  player: {fileID: 0}
+  eyes: {fileID: 3578484715095408650}
+  maxHP: 100
 --- !u!195 &3578484716886602261
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -204,37 +270,6 @@ NavMeshAgent:
   m_BaseOffset: 2.8
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &3578484716886602260
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3578484716886635722}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b49bab4158e2e24f8665ad3a7d8e25e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stayIdleTime: 3
-  maxDistanceToAlert: 5
-  rotateSpeedAlert: 100
-  startRotation: 0
-  minDistanceToAttack: 3
-  maxDistanceToAttack: 7
-  waypoints:
-  - {fileID: 3578484715073238400}
-  - {fileID: 3578484716736352908}
-  - {fileID: 3578484715661666760}
-  - {fileID: 3578484715955127072}
-  currentWaypointID: 0
-  maxDistanceToRaycast: 15
-  coneAngle: 90
-  sightLayerMask:
-    serializedVersion: 2
-    m_Bits: 55
-  player: {fileID: 0}
-  eyes: {fileID: 3578484715095408650}
 --- !u!1 &3578484717076813779
 GameObject:
   m_ObjectHideFlags: 0
