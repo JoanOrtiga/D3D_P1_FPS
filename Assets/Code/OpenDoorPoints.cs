@@ -18,13 +18,20 @@ public class OpenDoorPoints : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (fps.currentPoints >= 15)
+        if (fps.currentPoints >= 20)
         {
             anim.SetBool("points", true);
+
         }
-        else if (fps.currentPoints < 15)
+        else if (fps.currentPoints < 20)
         {
+
             anim.SetBool("points", false);
+        }
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Open"))
+        {
+            this.gameObject.GetComponent<AudioSource>().Play();
+
         }
     }
 }

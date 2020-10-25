@@ -1,57 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!111 &3480997874411312715
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3479240398603804794}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: f892d6ab2d5be684485eb688fd76a543, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: f892d6ab2d5be684485eb688fd76a543, type: 2}
-  - {fileID: 7400000, guid: 19a070b65b97d13499576e9949b95b3a, type: 2}
-  - {fileID: 7400000, guid: dd952dec5bed6c349b50fc6bb30dca7a, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
---- !u!114 &1335371365
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3479240398603804794}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b5bb3a68847df044b0a98fd687132b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  reloadKey: 114
-  shootKey: 323
-  weapon: {fileID: 3480997874411312715}
-  idleWeapon: {fileID: 7400000, guid: f892d6ab2d5be684485eb688fd76a543, type: 2}
-  shootWeapon: {fileID: 7400000, guid: 19a070b65b97d13499576e9949b95b3a, type: 2}
-  reloadWeapon: {fileID: 7400000, guid: dd952dec5bed6c349b50fc6bb30dca7a, type: 2}
-  shootEffect: {fileID: 831623288}
-  maxDistance: 20
-  hitCollisionParticlesPrefab: {fileID: 1167628166158255383, guid: 9cf069e0cf1060c4f98530062803c3f8, type: 3}
-  shootLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  gunDamage: 1
-  hitForce: 100
-  gunCadency: 0.1
-  reloadingTime: 1.5
-  ammoInMagazines: 30
-  maxAmmo: 180
-  shooting: {fileID: 8300000, guid: 8f46c6776e06b814284b3db6da017f60, type: 3}
-  unloadMagazine: {fileID: 8300000, guid: a5c51c89c9b3fda41b86fef62e5ad122, type: 3}
-  loadMagazine: {fileID: 8300000, guid: 168099b31259c16468923535a466a9db, type: 3}
-  gunAudio: {fileID: 0}
 --- !u!82 &1387451024
 AudioSource:
   m_ObjectHideFlags: 0
@@ -148,6 +96,59 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!111 &3480997874411312715
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3479240398603804794}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: f892d6ab2d5be684485eb688fd76a543, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: f892d6ab2d5be684485eb688fd76a543, type: 2}
+  - {fileID: 7400000, guid: 19a070b65b97d13499576e9949b95b3a, type: 2}
+  - {fileID: 7400000, guid: dd952dec5bed6c349b50fc6bb30dca7a, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
+--- !u!114 &1335371365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3479240398603804794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b5bb3a68847df044b0a98fd687132b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reloadKey: 114
+  shootKey: 323
+  weapon: {fileID: 3480997874411312715}
+  idleWeapon: {fileID: 7400000, guid: f892d6ab2d5be684485eb688fd76a543, type: 2}
+  shootWeapon: {fileID: 7400000, guid: 19a070b65b97d13499576e9949b95b3a, type: 2}
+  reloadWeapon: {fileID: 7400000, guid: dd952dec5bed6c349b50fc6bb30dca7a, type: 2}
+  shootEffect: {fileID: 831623288}
+  maxDistance: 20
+  hitCollisionParticlesPrefab: {fileID: 1167628166158255383, guid: 9cf069e0cf1060c4f98530062803c3f8, type: 3}
+  shootLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  gunDamage: 1
+  hitForce: 100
+  gunCadency: 0.1
+  reloadingTime: 1.5
+  ammoInMagazines: 30
+  maxAmmo: 180
+  shooting: {fileID: 8300000, guid: 8f46c6776e06b814284b3db6da017f60, type: 3}
+  unloadMagazine: {fileID: 8300000, guid: a5c51c89c9b3fda41b86fef62e5ad122, type: 3}
+  loadMagazine: {fileID: 8300000, guid: 168099b31259c16468923535a466a9db, type: 3}
+  gunAudio: {fileID: 0}
+  impactAudio: {fileID: 0}
 --- !u!1 &3480997874507394856
 GameObject:
   m_ObjectHideFlags: 0
