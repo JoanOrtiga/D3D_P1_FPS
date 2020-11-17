@@ -63,27 +63,22 @@ public class GameManager : MonoBehaviour
 
     public void RestartScene()
     {
-        //UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
-
         for (int i = 0; i < restartableObjects.Count; i++)
         {
-            restartableObjects[i].RestartObject();
+            if(restartableObjects[i] != null)
+                restartableObjects[i].RestartObject();
         }
 
         for (int i = 0; i < destroyObjects.childCount; i++)
         {
-            Destroy(destroyObjects.GetChild(i));
+            Destroy(destroyObjects.GetChild(i).gameObject);
         }
-
-        print("HOLAAA");
 
         Time.timeScale = 1;
         isPaused = false;
 
         if (lockCursor)
-            Cursor.lockState = CursorLockMode.Locked;
-
-    
+            Cursor.lockState = CursorLockMode.Locked;    
     }
 
     private void Update()
@@ -102,6 +97,8 @@ public class GameManager : MonoBehaviour
         restartableObjects.Clear();
         LoadSceneCanvas.SetActive(true);
 
+        restartableObjects.Clear();
+
         StartCoroutine(LoadNextScene(levelToLoad));
     }
 
@@ -111,7 +108,7 @@ public class GameManager : MonoBehaviour
 
         while (!asyncLoad.isDone)
         {
-            if(loadNextSceneBar != null)
+            if (loadNextSceneBar != null)
                 loadNextSceneBar.UpdateLevelBar(asyncLoad.progress);
 
             yield return null;
@@ -122,27 +119,4 @@ public class GameManager : MonoBehaviour
         isPaused = false;
         Time.timeScale = 1f;
     }
-
-    /* [Header("UI")]
-     public RectTransform m_UI;
-     public RectTransform m_LifeBarEnemy;
-
-     void Update()
-     {
-         if (m_Enemies.Count < 0)
-         {
-             Vector3 l_ViewportPoint = m_Player.m_Camera.WorldToViewportPoint(m_Enemies[0].transform.position);
-             Vector3 l_EnemyPositionOnCanvas = new Vector3(l_ViewportPoint.x * m_UI.sizeDelta.x, l_ViewportPoint.y * m_UI.sizeDelta.y, 0f);
-             m_LifeBarEnemy.anchoredPosition = l_EnemyPositionOnCanvas;
-             m_LifeBarEnemy.gameObject.SetActive(l_ViewportPoint.z > 0f);
-         }
-     }
-
-     public void RestartGame()
-     {
-         m_Player.RestartGame();
-         foreach (DroneEnemy l_Enemy in m_Enemies)
-             l_Enemy.RestartGame();
-     }
-    */
 }

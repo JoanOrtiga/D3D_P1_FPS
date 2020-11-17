@@ -12,7 +12,9 @@ public class PlayerStatsUI : MonoBehaviour
 
     public void UpdateAmmo(float ammo, float ammoInMagazine)
     {
-        ammoText.text = ammo + " / " + ammoInMagazine;
+
+        if(ammoText != null)
+            ammoText.text = ammo + " / " + ammoInMagazine;
     }
 
     public void UpdateHeal(int heal)

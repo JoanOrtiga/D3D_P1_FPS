@@ -63,7 +63,7 @@ public class FPS_CharacterController : RestartableObject
 
     protected override void Start()
     {
-        walk=this.gameObject.GetComponent<AudioSource>();
+        walk = this.gameObject.GetComponent<AudioSource>();
         base.Start();
 
         yaw = transform.rotation.eulerAngles.y;
@@ -106,9 +106,9 @@ public class FPS_CharacterController : RestartableObject
             }
         }
         if (Input.GetKey(leftMovement))
-        {  
+        {
             l_Movement += -l_Right;
-        
+
             if (walk.isPlaying != true)
             {
                 walk.Play();
@@ -143,7 +143,7 @@ public class FPS_CharacterController : RestartableObject
         {
             currentMovementSpeed = movementSpeed;
         }
-       
+
         l_Movement.Normalize();
 
         verticalSpeed = verticalSpeed + Physics.gravity.y * Time.deltaTime;
@@ -153,7 +153,7 @@ public class FPS_CharacterController : RestartableObject
 
         collisionFlags = characterController.Move(l_Movement);
 
-       
+
 
         GravityUpdate();
 
@@ -165,7 +165,7 @@ public class FPS_CharacterController : RestartableObject
 
             GameManager.instance.GameOver();
         }
-      
+
     }
 
     private void CameraUpdate()
@@ -229,13 +229,13 @@ public class FPS_CharacterController : RestartableObject
         {
             if (currentShield - (incomingDamage * recieveDamageShieldPercentatge / 100) >= 0)
             {
-                
+
                 currentShield = currentShield - incomingDamage * recieveDamageShieldPercentatge / 100;
                 currentHeal = currentHeal - incomingDamage * recieveDamageHealPercentatge / 100;
             }
             else
             {
-                
+
                 currentHeal = currentHeal - (incomingDamage * recieveDamageHealPercentatge / 100 + ((incomingDamage * recieveDamageShieldPercentatge / 100) - currentShield));
                 currentShield = 0;
             }
@@ -260,7 +260,8 @@ public class FPS_CharacterController : RestartableObject
 
     public override void RestartObject()
     {
-        characterController.enabled = false;
+        if (characterController != null)
+            characterController.enabled = false;
 
         base.RestartObject();
 

@@ -178,7 +178,7 @@ public class DroneMachine : Enemy
 
         foreach (Collider item in GetComponentsInChildren<Collider>())
         {
-            item.enabled = false;
+            item.enabled = true;
         }
 
         stateMachine.ChangeState(DroneIdleState.Instance);

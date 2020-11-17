@@ -40,7 +40,7 @@ public class Gun : RestartableObject
     [Header("POOL")]
     public Pool pool;
 
-   
+
 
     [Header("Sounds")]
     public AudioClip shooting;
@@ -49,7 +49,7 @@ public class Gun : RestartableObject
     public AudioSource gunAudio;
     public GameObject impactAudioMetalPrefab;
     public GameObject impactAudioNormalPrefab;
-    
+
     protected override void Start()
     {
         GameManager.instance.restartableObjects.Add(this);
@@ -74,7 +74,7 @@ public class Gun : RestartableObject
                 timeCadency = gunCadency;
                 Shoot();
             }
-            else if(currentAmmoMagazines <= 0)
+            else if (currentAmmoMagazines <= 0)
             {
                 shootEffect.SetActive(false);
             }
@@ -97,28 +97,28 @@ public class Gun : RestartableObject
 
         shootEffect.SetActive(true);
         gunAudio.Play();
-        
+
         if (Physics.Raycast(l_Ray, out l_RayCastHit, maxDistance, shootLayerMask.value))
         {
             CreateShootHitParticles(l_RayCastHit.point, l_RayCastHit.normal, l_RayCastHit.collider.transform);
             ShootableBox health = l_RayCastHit.collider.GetComponent<ShootableBox>();
             shootingTarget target = l_RayCastHit.collider.GetComponent<shootingTarget>();
 
-            if(health != null)
+            if (health != null)
             {
                 health.Damage(gunDamage);
             }
-            if(l_RayCastHit.rigidbody != null)
+            if (l_RayCastHit.rigidbody != null)
             {
                 l_RayCastHit.rigidbody.AddForce(-l_RayCastHit.normal * hitForce);
             }
-            if(target != null)
+            if (target != null)
             {
                 target.hit();
             }
             if (l_RayCastHit.collider.gameObject.CompareTag("MovingTarget"))
             {
-               moving.GetComponentInParent<MovingTarget>().hited = true;
+                moving.GetComponentInParent<MovingTarget>().hited = true;
             }
             if (l_RayCastHit.collider.gameObject.CompareTag("metal"))
             {
@@ -148,7 +148,7 @@ public class Gun : RestartableObject
         {
             gunAudio.clip = unloadMagazine;
             gunAudio.Play();
-               StartCoroutine(Reload());
+            StartCoroutine(Reload());
         }
     }
 
@@ -177,19 +177,19 @@ public class Gun : RestartableObject
     private IEnumerator Reload()
     {
         SetReloadingWeaponAnimation();
-        
+
         reloading = true;
-        
+
         yield return new WaitForSeconds(reloadingTime);
         gunAudio.clip = loadMagazine;
         gunAudio.Play();
         reloading = false;
-        
+
         int ammoToBeLoaded = ammoInMagazines - currentAmmo;
 
         if (ammoToBeLoaded > currentAmmoMagazines)
         {
-           
+
             currentAmmo += currentAmmoMagazines;
             currentAmmoMagazines = 0;
         }
@@ -198,7 +198,7 @@ public class Gun : RestartableObject
             currentAmmoMagazines = currentAmmoMagazines - ammoToBeLoaded;
             currentAmmo = ammoInMagazines;
         }
-        
+
         updateUI.UpdateAmmo(currentAmmo, currentAmmoMagazines);
     }
 
@@ -227,8 +227,11 @@ public class Gun : RestartableObject
     {
         currentAmmo = ammoInMagazines;
         currentAmmoMagazines = maxAmmo;
-        weapon.Play(idleWeapon.name);
-        shootEffect.SetActive(false);
+        if (weapon != null)
+            weapon.Play(idleWeapon.name);
+
+        if (shootEffect != null)
+            shootEffect.SetActive(false);
 
         updateUI.UpdateAmmo(currentAmmo, currentAmmoMagazines);
     }
