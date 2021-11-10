@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class DroneMachine : Enemy
+public class GoombaMachine : Enemy
 {
     private StateMachine<DroneMachine> stateMachine;
     public StateMachine<DroneMachine> pStateMachine
